@@ -1,0 +1,88 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Pretendard", ui-sans-serif, system-ui, -apple-system, sans-serif;
+
+  --color-navy: #0a192f;
+  --color-brand-blue: #2f65b1;
+  --color-brand-blue-light: #2867c0;
+  --color-slate: #36454f;
+  --color-slate-2: #44474d;
+  --color-border-gray: #bcc6cc;
+  --color-border-gray-2: #c5c6cd;
+  --color-bg-gray: #f8f9fa;
+  --color-bg-gray-2: #f3f4f5;
+  --color-placeholder: #6b7280;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Infinite marquee rows (Qualifications section) */
+@keyframes marquee-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes marquee-right {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+.animate-marquee-left {
+  animation: marquee-left 36s linear infinite;
+}
+.animate-marquee-right {
+  animation: marquee-right 30s linear infinite;
+}
+.animate-marquee-slow {
+  animation: marquee-left 55s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee-left,
+  .animate-marquee-right,
+  .animate-marquee-slow {
+    animation: none;
+  }
+}
+
+/* Scroll-triggered fade-up entrance (see FadeUp.jsx) */
+.fade-up {
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  will-change: opacity, transform;
+}
+.fade-up-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .fade-up {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-slate);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Hide native <details> marker, we draw our own chevron */
+details summary::-webkit-details-marker {
+  display: none;
+}
+details summary {
+  list-style: none;
+  cursor: pointer;
+}
