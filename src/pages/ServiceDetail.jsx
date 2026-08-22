@@ -438,7 +438,7 @@ export default function ServiceDetail() {
             </FadeUp>
             <FadeUp delay={160} className="flex flex-wrap justify-center gap-4 pt-2">
               <a
-                href="tel:010-3583-3542"
+                href="tel:1551-5152"
                 className="flex items-center gap-2 rounded-[12px] bg-white px-10 py-4 text-[16px] font-bold text-navy transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
               >
                 <img src={serviceCtaIcons.phone} alt="" className="h-[18px] w-[18px]" />

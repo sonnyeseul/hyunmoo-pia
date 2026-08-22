@@ -24,9 +24,11 @@ export default function Hero() {
           </FadeUp>
 
           <FadeUp delay={100} as="h1" className="text-[28px] md:text-[40px] font-bold leading-[1.3] tracking-[-0.5px] text-navy">
-            단 하나의 결정적 증거가 백 마디
+            단 하나의 결정적 증거가 
             <br />
-            변론보다 강력한 설득력을 갖는다
+            백 마디 변론보다 
+            <br />
+            강력한 설득력을 갖는다
           </FadeUp>
 
           <FadeUp delay={200} as="p" className="max-w-[576px] text-[16px] md:text-[18px] leading-[1.6] text-slate">
