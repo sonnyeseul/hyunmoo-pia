@@ -1,19 +1,7 @@
 import { partnerLogos } from "../assets/figmaAssets";
 import { certificateGallery, certificateCards } from "../assets/certificates";
+import { institutionLogos } from "../assets/institutions";
 import FadeUp from "./FadeUp";
-
-// Institutions the office works with / files through. These are typographic
-// nameplates, NOT the official emblems — drop real logo files in and swap the
-// tile contents once licensed artwork is available.
-const AFFILIATIONS = [
-  { mark: "정부24", sub: "대한민국 정부 대표 포털" },
-  { mark: "대한민국법원", sub: "Courts of Korea" },
-  { mark: "부산가정법원", sub: "Busan Family Court" },
-  { mark: "경남가정법원", sub: "Gyeongnam Family Court" },
-  { mark: "KAIT", sub: "한국정보통신진흥협회" },
-  { mark: "KISTA", sub: "한국특허전략개발원" },
-  { mark: "FIU", sub: "금융정보분석원" },
-];
 
 function MarqueeRow({ items, direction = "left", pauseOnHover = true, itemClassName, renderItem }) {
   const animClass = direction === "right" ? "animate-marquee-right" : "animate-marquee-left";
@@ -120,23 +108,33 @@ PIA 탐정사 자격증과 한국자격검정평가진흥원 탐정사 1급 · 2
         </FadeUp>
 
         {/* Affiliated institutions — always-on continuous marquee (no hover pause) */}
-        <div className="flex flex-col gap-6 border-t border-white/10 pt-12">
-          <FadeUp as="p" className="text-center text-[12px] font-bold tracking-[1.6px] text-white/50">
-            협력 · 신고 · 등록 기관
+        <div className="flex flex-col gap-9 border-t border-white/10 pt-14">
+          <FadeUp className="flex flex-col items-center gap-4">
+            <span className="text-[11px] font-bold tracking-[3px] text-[#7fb0f0]">
+              PARTNER INSTITUTIONS
+            </span>
+            <h3 className="text-center text-[24px] md:text-[30px] font-bold tracking-[-0.4px] text-white">
+              협력 · 신고 · 등록 기관
+            </h3>
+            <span
+              className="h-px w-20 bg-gradient-to-r from-transparent via-white/45 to-transparent"
+              aria-hidden
+            />
           </FadeUp>
           <MarqueeRow
-            items={AFFILIATIONS}
+            items={institutionLogos}
             direction="left"
             pauseOnHover={false}
             itemClassName="shrink-0"
             renderItem={(org) => (
-              <div className="flex h-[86px] w-[226px] flex-col items-center justify-center gap-1.5 rounded-[8px] border border-white/12 bg-white/[0.05] px-5">
-                <span className="whitespace-nowrap text-[17px] font-bold leading-none tracking-[-0.2px] text-white/90">
-                  {org.mark}
-                </span>
-                <span className="whitespace-nowrap text-[11px] leading-none tracking-[0.4px] text-white/45">
-                  {org.sub}
-                </span>
+              <div className="flex h-[104px] w-[236px] items-center justify-center rounded-[10px] bg-white px-7 py-5 shadow-lg shadow-black/20 ring-1 ring-white/10">
+                <img
+                  src={org.src}
+                  alt={org.alt}
+                  loading="lazy"
+                  className="max-h-full max-w-full object-contain"
+                  draggable={false}
+                />
               </div>
             )}
           />

@@ -27,10 +27,6 @@ export const problemIconSafety =
 export const servicesBentoImage =
   "https://www.figma.com/api/mcp/asset/f341b2fd-1a6d-474f-9fe8-597e06ba7ba5.png";
 
-// Director Message photo
-export const directorPhoto =
-  "https://www.figma.com/api/mcp/asset/b77dfa82-f136-466a-91b5-d2977354b989.png";
-
 // Qualifications - association / partner logo roundels (looped for a marquee)
 export const partnerLogos = [
   "https://www.figma.com/api/mcp/asset/b0784164-5ec6-41f4-87db-dee6200eca90.png",
