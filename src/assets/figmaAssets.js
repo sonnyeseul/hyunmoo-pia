@@ -11,41 +11,9 @@
  * manual step.
  */
 
-// Hero
-export const heroBackground =
-  "https://www.figma.com/api/mcp/asset/25b6622f-253e-4893-b7f9-4d6c05663a8a.png";
-
-// Client Problem Selector icons
-export const problemIconFamily =
-  "https://www.figma.com/api/mcp/asset/dc265bf7-492a-43bd-b0c2-bb66df6aec3c.svg";
-export const problemIconCorporate =
-  "https://www.figma.com/api/mcp/asset/c5b36cca-1e92-4469-be30-fb331e9d3e79.svg";
-export const problemIconSafety =
-  "https://www.figma.com/api/mcp/asset/dde179f8-8e52-4c87-9112-6b67d0158e1f.svg";
-
-// Key Services (Bento) big image
-export const servicesBentoImage =
-  "https://www.figma.com/api/mcp/asset/f341b2fd-1a6d-474f-9fe8-597e06ba7ba5.png";
-
-// Qualifications - association / partner logo roundels (looped for a marquee)
-export const partnerLogos = [
-  "https://www.figma.com/api/mcp/asset/b0784164-5ec6-41f4-87db-dee6200eca90.png",
-  "https://www.figma.com/api/mcp/asset/e6a7e1a3-0cc2-413e-ada8-cc0b842d507b.png",
-  "https://www.figma.com/api/mcp/asset/148b4802-d659-4875-902d-d0933e6f0652.png",
-  "https://www.figma.com/api/mcp/asset/550e37c3-7681-4e81-9680-a7ffd80d3658.png",
-];
-
 // Confidentiality icon
 export const confidentialityIcon =
   "https://www.figma.com/api/mcp/asset/0d4b68c6-b4da-4956-baf8-eef8f51d021a.svg";
-
-// Case Examples thumbnails
-export const caseImages = {
-  family: "https://www.figma.com/api/mcp/asset/25dc2e1c-7faf-4654-8411-fc473d80b1b0.png",
-  corporate: "https://www.figma.com/api/mcp/asset/16bd9c5f-8238-4866-a1b3-caf74d1a1994.png",
-  safety: "https://www.figma.com/api/mcp/asset/8e0b49a2-d669-4207-bd53-e31f40073242.png",
-  locate: "https://www.figma.com/api/mcp/asset/a1c409fb-9205-4471-ac33-3894698a608a.png",
-};
 
 // Testimonials quote mark icon
 export const quoteIcon =
@@ -76,9 +44,6 @@ export const pricingIcons = {
 export const faqChevron =
   "https://www.figma.com/api/mcp/asset/a8e7d6b3-8ce2-41ae-8674-0a18e40592b8.svg";
 
-// Location / map (updated per Figma node 11:2940 — dark, modern map graphic)
-export const mapImage =
-  "https://www.figma.com/api/mcp/asset/553e8be2-707b-4445-be6d-0b4ed96b4a7e.png";
 export const busIcon =
   "https://www.figma.com/api/mcp/asset/39591501-9c8c-4983-88a2-480325d5c1b8.svg";
 export const parkingIcon =

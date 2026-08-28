@@ -1,4 +1,4 @@
-import { heroBackground } from "../assets/figmaAssets";
+import { heroImage } from "../assets/site";
 import FadeUp from "./FadeUp";
 
 export default function Hero() {
@@ -9,7 +9,7 @@ export default function Hero() {
     >
       <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-1/3 overflow-hidden md:block">
         <img
-          src={heroBackground}
+          src={heroImage}
           alt=""
           className="absolute inset-0 h-full w-full object-cover"
         />

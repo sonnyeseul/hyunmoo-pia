@@ -1,4 +1,5 @@
-import { mapImage, busIcon, parkingIcon } from "../assets/figmaAssets";
+import { busIcon, parkingIcon } from "../assets/figmaAssets";
+import { mapImage } from "../assets/site";
 import FadeUp from "./FadeUp";
 
 export default function Location() {
@@ -47,17 +48,12 @@ export default function Location() {
             alt="현무 PIA 사무실 위치 지도"
             className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
-          {/* Soften the reference image's baked-in labels so our own pin reads clearly */}
+          {/* The map artwork already carries the HYUNMOO PIA탐정 label, so no
+              overlay pin here — just a light vignette to seat it in the page. */}
           <div
-            className="pointer-events-none absolute inset-0 bg-gradient-to-b from-navy/55 via-transparent to-navy/60"
+            className="pointer-events-none absolute inset-0 bg-gradient-to-b from-navy/20 via-transparent to-navy/25"
             aria-hidden
           />
-          <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 items-baseline gap-1 rounded-sm border border-white/20 bg-white px-4 py-3 shadow-lg transition-transform duration-300 group-hover:scale-105">
-            <span className="text-[16px] font-bold tracking-tight text-navy">
-              HYUNMOO&nbsp;PIA
-            </span>
-            <span className="text-[12px] font-semibold text-brand-blue">탐정</span>
-          </div>
         </FadeUp>
       </div>
     </section>

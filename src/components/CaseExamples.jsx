@@ -1,4 +1,4 @@
-import { caseImages } from "../assets/figmaAssets";
+import { caseImages } from "../assets/site";
 import FadeUp from "./FadeUp";
 
 const CASES = [

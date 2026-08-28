@@ -1,4 +1,4 @@
-import { servicesBentoImage } from "../assets/figmaAssets";
+import { servicesBentoImage } from "../assets/site";
 import FadeUp from "./FadeUp";
 import { goTo } from "../utils/navigation";
 

@@ -1,21 +1,21 @@
-import { problemIconFamily, problemIconCorporate, problemIconSafety } from "../assets/figmaAssets";
+import { problemIcons } from "../assets/site";
 import FadeUp from "./FadeUp";
 
 const PROBLEMS = [
   {
-    icon: problemIconFamily,
+    icon: problemIcons.family,
     title: "개인·가정 문제",
     desc: "배우자 관련 사실관계 확인 및 민감한 가사 분쟁에 필요한 증거 수집.",
     tags: ["양육권", "가사분쟁"],
   },
   {
-    icon: problemIconCorporate,
+    icon: problemIcons.corporate,
     title: "기업·금융 보안",
     desc: "기업 내부 비위, 거래처 검증 및 디지털 자산 피해 조사.",
     tags: [],
   },
   {
-    icon: problemIconSafety,
+    icon: problemIcons.safety,
     title: "안전 및 소재 파악",
     desc: "실종·가출 소재 파악, 신변보호 및 불법 탐지 장비 점검.",
     tags: [],

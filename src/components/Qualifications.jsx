@@ -1,4 +1,4 @@
-import { partnerLogos } from "../assets/figmaAssets";
+import { associationEmblems } from "../assets/site";
 import { certificateGallery, certificateCards } from "../assets/certificates";
 import { institutionLogos } from "../assets/institutions";
 import FadeUp from "./FadeUp";
@@ -97,12 +97,17 @@ PIA 탐정사 자격증과 한국자격검정평가진흥원 탐정사 1급 · 2
           delay={150}
           className="mx-auto grid w-full max-w-[1121px] grid-cols-2 items-center justify-items-center gap-x-8 gap-y-10 pt-2 sm:grid-cols-4 lg:gap-x-[43px]"
         >
-          {partnerLogos.map((src, i) => (
-            <div
-              key={i}
-              className="aspect-square w-full max-w-[248px] overflow-hidden rounded-full"
-            >
-              <img src={src} alt="" className="h-full w-full object-cover" draggable={false} />
+          {associationEmblems.map((emblem) => (
+            <div key={emblem.alt} className="aspect-square w-full max-w-[248px]">
+              {/* object-contain, not a circular crop — one of the four is a crest,
+                  not a roundel, and would lose its top and bottom to a circle. */}
+              <img
+                src={emblem.src}
+                alt={emblem.alt}
+                loading="lazy"
+                className="h-full w-full object-contain"
+                draggable={false}
+              />
             </div>
           ))}
         </FadeUp>
