@@ -1,4 +1,4 @@
-import { faqChevron } from "../assets/figmaAssets";
+import Icon from "./Icon";
 import FadeUp from "./FadeUp";
 
 const FAQS = [
@@ -32,10 +32,9 @@ export default function FAQ() {
             >
               <summary className="flex items-center justify-between gap-4 text-[18px] md:text-[24px] font-semibold text-slate transition-colors duration-200 group-hover:text-brand-blue">
                 {item.q}
-                <img
-                  src={faqChevron}
-                  alt=""
-                  className="h-[7.4px] w-3 shrink-0 transition-transform group-open:rotate-180"
+                <Icon
+                  name="chevron-down"
+                  className="h-4 w-4 shrink-0 text-slate/70 transition-transform group-open:rotate-180"
                 />
               </summary>
               <p className="pt-4 text-[16px] leading-relaxed text-slate">{item.a}</p>

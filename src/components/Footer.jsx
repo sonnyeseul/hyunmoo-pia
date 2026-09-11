@@ -54,7 +54,7 @@ export default function Footer() {
               </span>
             </div>
             <p className="max-w-[460px] text-[16px] leading-relaxed text-slate">
-              현무 PIA 민간조사 탐정사무소는 2008년부터 부산을 본거지로 전국을 아우르는 전문
+              현무 PIA 민간조사 탐정사무소는 2024년부터 부산을 본거지로 전국을 아우르는 전문
               증거 수집 및 사실조사 서비스를 제공하고 있습니다.
             </p>
           </div>

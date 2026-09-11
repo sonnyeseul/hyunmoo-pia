@@ -1,11 +1,11 @@
-import { pricingIcons } from "../assets/figmaAssets";
+import Icon from "./Icon";
 import FadeUp from "./FadeUp";
 
 const FACTORS = [
-  { icon: pricingIcons.duration, label: "예상 조사 기간" },
-  { icon: pricingIcons.team, label: "투입 전문 인력 수" },
-  { icon: pricingIcons.location, label: "활동 지역 및 이동 거리" },
-  { icon: pricingIcons.equipment, label: "특수 장비 사용 여부" },
+  { icon: "clock", label: "예상 조사 기간" },
+  { icon: "users", label: "투입 전문 인력 수" },
+  { icon: "map-pin", label: "활동 지역 및 이동 거리" },
+  { icon: "camera", label: "특수 장비 사용 여부" },
 ];
 
 export default function PricingInfo() {
@@ -26,9 +26,8 @@ export default function PricingInfo() {
               delay={160 + i * 80}
               className="group flex items-center gap-4 rounded-[10px] border border-[#bcc6cc] p-4 transition-all duration-300 hover:-translate-y-1 hover:border-brand-blue/40 hover:shadow-lg hover:shadow-navy/5"
             >
-              <img
-                src={f.icon}
-                alt=""
+              <Icon
+                name={f.icon}
                 className="h-5 w-5 shrink-0 transition-transform duration-300 group-hover:scale-125"
               />
               <span className="text-[12px] font-bold tracking-[1.2px] text-slate">

@@ -1,4 +1,4 @@
-import { busIcon, parkingIcon } from "../assets/figmaAssets";
+import Icon from "./Icon";
 import { mapImage } from "../assets/site";
 import FadeUp from "./FadeUp";
 
@@ -14,7 +14,7 @@ export default function Location() {
 
           <div className="flex flex-col gap-6 pt-2">
             <FadeUp delay={160} className="flex gap-4">
-              <img src={busIcon} alt="" className="h-[19px] w-4 shrink-0" />
+              <Icon name="bus" className="h-5 w-5 shrink-0 text-brand-blue" />
               <div>
                 <div className="text-[12px] font-bold tracking-[1.2px] text-slate">
                   대중교통 안내
@@ -25,7 +25,7 @@ export default function Location() {
               </div>
             </FadeUp>
             <FadeUp delay={240} className="flex gap-4">
-              <img src={parkingIcon} alt="" className="h-[18px] w-[13px] shrink-0" />
+              <Icon name="parking" className="h-5 w-5 shrink-0 text-brand-blue" />
               <div>
                 <div className="text-[12px] font-bold tracking-[1.2px] text-slate">
                   주차 안내

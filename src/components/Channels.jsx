@@ -1,4 +1,4 @@
-import { channelIcons } from "../assets/figmaAssets";
+import Icon from "./Icon";
 import FadeUp from "./FadeUp";
 
 // NOTE: Only a KakaoTalk link was provided. Swap TELEGRAM_LINK for the real
@@ -16,9 +16,8 @@ export default function Channels() {
           href="tel:010-3583-3542"
           className="group flex items-center gap-3 text-[16px] text-white transition-colors duration-200 hover:text-brand-blue-light"
         >
-          <img
-            src={channelIcons.phone}
-            alt=""
+          <Icon
+            name="phone"
             className="h-[18px] w-[18px] transition-transform duration-200 group-hover:scale-125"
           />
           대표 전화: 010-3583-3542
@@ -29,9 +28,8 @@ export default function Channels() {
           href="sms:010-3583-3542"
           className="group flex items-center gap-3 text-[16px] text-white transition-colors duration-200 hover:text-brand-blue-light"
         >
-          <img
-            src={channelIcons.sms}
-            alt=""
+          <Icon
+            name="message"
             className="h-5 w-5 transition-transform duration-200 group-hover:scale-125"
           />
           문자 상담: 010-3583-3542
@@ -44,9 +42,8 @@ export default function Channels() {
           rel="noopener noreferrer"
           className="group flex items-center gap-1 text-[16px] text-white transition-colors duration-200 hover:text-brand-blue-light"
         >
-          <img
-            src={channelIcons.kakao}
-            alt=""
+          <Icon
+            name="chat"
             className="h-5 w-5 transition-transform duration-200 group-hover:scale-125"
           />
           Kakaotalk
@@ -59,10 +56,9 @@ export default function Channels() {
           rel="noopener noreferrer"
           className="group flex items-center gap-1 text-[16px] text-white transition-colors duration-200 hover:text-brand-blue-light"
         >
-          <img
-            src={channelIcons.telegram}
-            alt=""
-            className="h-4 w-[19px] transition-transform duration-200 group-hover:scale-125"
+          <Icon
+            name="send"
+            className="h-5 w-5 transition-transform duration-200 group-hover:scale-125"
           />
           Telegram
         </FadeUp>

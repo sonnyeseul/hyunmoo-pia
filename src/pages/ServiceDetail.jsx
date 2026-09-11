@@ -2,29 +2,22 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import FadeUp from "../components/FadeUp";
 import { goTo } from "../utils/navigation";
-import {
-  serviceDetailHeroImage,
-  serviceCoreIcons,
-  serviceConsultArrow,
-  investigationPrincipleIcons,
-  legalScopeIcons,
-  preparationDocIcons,
-  serviceCtaIcons,
-} from "../assets/figmaAssets";
+import Icon from "../components/Icon";
+import { servicesBentoImage } from "../assets/site";
 
 const CORE_COMPETENCIES = [
   {
-    icon: serviceCoreIcons.familyCheck,
+    icon: "home",
     title: "가족 신변 확인",
     desc: "가족의 안전과 화합을 위해 배경, 일과 패턴, 주변 인물 관계를 철저히 확인합니다.",
   },
   {
-    icon: serviceCoreIcons.runawayTrace,
+    icon: "route",
     title: "가출 및 소재 파악",
     desc: "연락이 두절된 가족 구성원이나 의도적으로 자취를 감춘 인물에 대한 체계적인 추적 업무를 수행합니다.",
   },
   {
-    icon: serviceCoreIcons.premaritalCheck,
+    icon: "rings",
     title: "결혼 전 배경 조사",
     desc: "인생의 중대한 결정을 앞두고, 법적 테두리 내에서 신뢰의 토대를 마련하기 위한 평판 및 배경 확인을 진행합니다.",
   },
@@ -50,17 +43,17 @@ const NEED_INVESTIGATION = [
 
 const INVESTIGATION_PRINCIPLES = [
   {
-    icon: investigationPrincipleIcons.legalCompliance,
+    icon: "scale",
     title: "엄격한 법적 준수:",
     desc: "수집된 증거의 효력을 보장하기 위해 민간조사 관련 법규 내에서만 활동합니다.",
   },
   {
-    icon: investigationPrincipleIcons.securityDiscretion,
+    icon: "lock",
     title: "정교한 보안 유지:",
     desc: "대상자가 조사 사실을 인지하지 못하도록 최소한의 흔적만을 남기는 기법을 사용합니다.",
   },
   {
-    icon: investigationPrincipleIcons.transparentReporting,
+    icon: "file-check",
     title: "투명한 리포팅:",
     desc: "실시간 상황 공유와 함께 타임스탬프가 포함된 멀티미디어 증거 보고서를 제공합니다.",
   },
@@ -90,10 +83,10 @@ const PROCESS_STEPS = [
 ];
 
 const PREP_DOCS = [
-  { icon: preparationDocIcons[0], label: "대상자의 사진 및 기본 인적사항" },
-  { icon: preparationDocIcons[1], label: "주요 거주지 및 직장 위치 정보" },
-  { icon: preparationDocIcons[2], label: "사용 차량 번호 및 차종 정보" },
-  { icon: preparationDocIcons[3], label: "대상자의 일반적인 일과 패턴" },
+  { icon: "id-card", label: "대상자의 사진 및 기본 인적사항" },
+  { icon: "map-pin", label: "주요 거주지 및 직장 위치 정보" },
+  { icon: "car", label: "사용 차량 번호 및 차종 정보" },
+  { icon: "calendar", label: "대상자의 일반적인 일과 패턴" },
 ];
 
 const SERVICE_FAQS = [
@@ -155,7 +148,7 @@ export default function ServiceDetail() {
                 className="relative overflow-hidden rounded-[10px] border border-[#bcc6cc] bg-[#edeeef] aspect-[4/3]"
               >
                 <img
-                  src={serviceDetailHeroImage}
+                  src={servicesBentoImage}
                   alt="전문 조사관의 정돈된 업무 데스크"
                   className="h-full w-full object-cover"
                 />
@@ -178,7 +171,7 @@ export default function ServiceDetail() {
                   delay={i * 100}
                   className="group flex flex-col gap-3 rounded-[10px] border border-[#d9d9d9] bg-white p-8 transition-all duration-300 hover:-translate-y-1 hover:border-brand-blue/40 hover:shadow-xl hover:shadow-navy/5"
                 >
-                  <img src={item.icon} alt="" className="h-6 w-6 shrink-0" />
+                  <Icon name={item.icon} className="h-6 w-6 shrink-0" />
                   <h3 className="text-[22px] font-semibold text-slate transition-colors duration-300 group-hover:text-brand-blue">
                     {item.title}
                   </h3>
@@ -191,7 +184,7 @@ export default function ServiceDetail() {
                 className="md:col-span-2 flex flex-col gap-6 rounded-[10px] border border-[#d9d9d9] bg-white p-8 sm:flex-row"
               >
                 <div className="flex flex-1 flex-col gap-3">
-                  <img src={serviceCoreIcons.litigationEvidence} alt="" className="h-6 w-6" />
+                  <Icon name="scale" className="h-6 w-6" />
                   <h3 className="text-[22px] font-semibold text-slate">소송 증거 수집 지원</h3>
                   <p className="text-[15px] leading-relaxed text-[#44474d]">
                     가사 소송, 양육권 분쟁, 재산 분할 등 법정에서 활용 가능한 객관적 증거 자료
@@ -200,7 +193,7 @@ export default function ServiceDetail() {
                 </div>
                 <div className="hidden w-px self-stretch bg-border-gray/40 sm:block" />
                 <div className="flex flex-1 flex-col gap-3">
-                  <img src={serviceCoreIcons.stalkingPrevention} alt="" className="h-6 w-6" />
+                  <Icon name="eye-off" className="h-6 w-6" />
                   <h3 className="text-[22px] font-semibold text-slate">스토킹 및 피해 방지</h3>
                   <p className="text-[15px] leading-relaxed text-[#44474d]">
                     가해자 식별 및 증거 채집을 통해 접근 금지 명령 신청 및 수사 기관 공조를
@@ -272,7 +265,7 @@ export default function ServiceDetail() {
               <div className="flex flex-col gap-4">
                 {INVESTIGATION_PRINCIPLES.map((p) => (
                   <div key={p.title} className="flex gap-3">
-                    <img src={p.icon} alt="" className="h-5 w-5 shrink-0" />
+                    <Icon name={p.icon} className="h-5 w-5 shrink-0" />
                     <p className="text-[15px] leading-relaxed text-slate">
                       <span className="font-bold">{p.title}</span> {p.desc}
                     </p>
@@ -298,7 +291,7 @@ export default function ServiceDetail() {
             <div className="grid grid-cols-1 gap-px overflow-hidden rounded-[10px] bg-white/10 md:grid-cols-2">
               <FadeUp className="flex flex-col gap-5 bg-navy p-8 md:p-10">
                 <div className="flex items-center gap-2">
-                  <img src={legalScopeIcons.allowed} alt="" className="h-5 w-5" />
+                  <Icon name="check-circle" className="h-5 w-5" />
                   <h3 className="text-[16px] font-bold text-brand-blue-light">합법적 조사 범위</h3>
                 </div>
                 <ul className="flex flex-col gap-3">
@@ -311,7 +304,7 @@ export default function ServiceDetail() {
               </FadeUp>
               <FadeUp delay={100} className="flex flex-col gap-5 bg-navy p-8 md:p-10">
                 <div className="flex items-center gap-2">
-                  <img src={legalScopeIcons.forbidden} alt="" className="h-5 w-5" />
+                  <Icon name="x-circle" className="h-5 w-5" />
                   <h3 className="text-[16px] font-bold text-red-400">금지 및 불가 행위</h3>
                 </div>
                 <ul className="flex flex-col gap-3">
@@ -362,7 +355,7 @@ export default function ServiceDetail() {
               <div className="grid flex-1 grid-cols-1 sm:grid-cols-2 gap-4">
                 {PREP_DOCS.map((doc) => (
                   <div key={doc.label} className="flex items-center gap-3">
-                    <img src={doc.icon} alt="" className="h-[18px] w-[18px] shrink-0" />
+                    <Icon name={doc.icon} className="h-[18px] w-[18px] shrink-0" />
                     <span className="text-[14px] font-semibold text-slate">{doc.label}</span>
                   </div>
                 ))}
@@ -441,7 +434,7 @@ export default function ServiceDetail() {
                 href="tel:010-3583-3542"
                 className="flex items-center gap-2 rounded-[12px] bg-white px-10 py-4 text-[16px] font-bold text-navy transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
               >
-                <img src={serviceCtaIcons.phone} alt="" className="h-[18px] w-[18px]" />
+                <Icon name="phone" className="h-[18px] w-[18px]" />
                 지금 전화하기
               </a>
               <button
@@ -449,7 +442,7 @@ export default function ServiceDetail() {
                 onClick={() => goTo("contact")}
                 className="flex items-center gap-2 rounded-[12px] border border-white/20 bg-navy px-10 py-4 text-[16px] font-bold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-white/5"
               >
-                <img src={serviceCtaIcons.chat} alt="" className="h-4 w-5" />
+                <Icon name="chat" className="h-[18px] w-[18px]" />
                 온라인 문의
               </button>
             </FadeUp>

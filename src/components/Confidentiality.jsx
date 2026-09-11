@@ -1,4 +1,4 @@
-import { confidentialityIcon } from "../assets/figmaAssets";
+import Icon from "./Icon";
 import FadeUp from "./FadeUp";
 
 export default function Confidentiality() {
@@ -7,10 +7,9 @@ export default function Confidentiality() {
       <div className="mx-auto max-w-[1200px]">
         <div className="group flex flex-col md:flex-row items-start gap-8 md:gap-12 rounded-[10px] bg-bg-gray p-8 md:p-12 transition-all duration-300 hover:shadow-xl hover:shadow-navy/5">
           <FadeUp className="flex w-full md:w-[336px] flex-col gap-6">
-            <img
-              src={confidentialityIcon}
-              alt=""
-              className="h-12 w-10 transition-transform duration-300 group-hover:scale-110"
+            <Icon
+              name="shield-lock"
+              className="h-11 w-11 shrink-0 text-brand-blue transition-transform duration-300 group-hover:scale-110"
             />
             <h3 className="text-[24px] font-semibold text-slate">철저한 보안 운영 방식</h3>
           </FadeUp>

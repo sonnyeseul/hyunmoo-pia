@@ -1,5 +1,5 @@
+import Icon from "./Icon";
 import { useState } from "react";
-import { selectChevron } from "../assets/figmaAssets";
 import FadeUp from "./FadeUp";
 
 const FIELDS_OF_INTEREST = [
@@ -124,10 +124,9 @@ export default function ContactForm() {
                         </option>
                       ))}
                     </select>
-                    <img
-                      src={selectChevron}
-                      alt=""
-                      className="pointer-events-none absolute right-1 top-1/2 h-6 w-6 -translate-y-1/2"
+                    <Icon
+                      name="chevron-down"
+                      className="pointer-events-none absolute right-1 top-1/2 h-5 w-5 -translate-y-1/2 text-slate/60"
                     />
                   </div>
                 </label>

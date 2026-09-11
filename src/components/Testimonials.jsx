@@ -1,4 +1,4 @@
-import { quoteIcon } from "../assets/figmaAssets";
+import Icon from "./Icon";
 import FadeUp from "./FadeUp";
 
 const TOP_ROW = [
@@ -58,7 +58,7 @@ function TestimonialCard({ tag, quote, name, compact, delay = 0 }) {
         {name}
       </span>
       {!compact && (
-        <img src={quoteIcon} alt="" className="absolute right-6 top-6 h-[18px] w-[25.5px]" />
+        <Icon name="quote" className="absolute right-6 top-6 h-6 w-6 text-brand-blue/25" />
       )}
     </FadeUp>
   );

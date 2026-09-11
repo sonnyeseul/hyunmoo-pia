@@ -2,7 +2,8 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import FadeUp from "../components/FadeUp";
 import { goTo } from "../utils/navigation";
-import { privacyVisualImage, privacySectionIcons } from "../assets/figmaAssets";
+import Icon from "../components/Icon";
+import { servicesBentoImage } from "../assets/site";
 
 const SIDE_NAV = [
   { id: "privacy-section-1", label: "개인정보 처리방침" },
@@ -97,7 +98,7 @@ export default function PrivacyPolicy() {
                 <section id="privacy-section-1" className="scroll-mt-24">
                   <FadeUp className="flex flex-col gap-4">
                     <div className="flex items-center gap-2">
-                      <img src={privacySectionIcons.personalInfo} alt="" className="h-5 w-4" />
+                      <Icon name="user-lock" className="h-5 w-5" />
                       <span className="text-[12px] font-bold tracking-[1.2px] text-brand-blue">
                         Section 01
                       </span>
@@ -133,7 +134,7 @@ export default function PrivacyPolicy() {
                 <section id="privacy-section-2" className="scroll-mt-24">
                   <FadeUp className="flex flex-col gap-4">
                     <div className="flex items-center gap-2">
-                      <img src={privacySectionIcons.scopeOfWork} alt="" className="h-[19px] w-[18px]" />
+                      <Icon name="clipboard" className="h-5 w-5" />
                       <span className="text-[12px] font-bold tracking-[1.2px] text-brand-blue">
                         Section 02
                       </span>
@@ -149,7 +150,7 @@ export default function PrivacyPolicy() {
                     <div className="grid grid-cols-1 gap-6 pt-2 sm:grid-cols-2">
                       <div className="flex flex-col gap-4 rounded-[8px] border border-[#bcc6cc] bg-bg-gray p-8">
                         <div className="flex items-center gap-2">
-                          <img src={privacySectionIcons.allowedServices} alt="" className="h-5 w-5" />
+                          <Icon name="check-circle" className="h-5 w-5" />
                           <h3 className="text-[20px] font-semibold text-navy">수행 가능 서비스</h3>
                         </div>
                         <ul className="flex flex-col gap-3">
@@ -162,7 +163,7 @@ export default function PrivacyPolicy() {
                       </div>
                       <div className="flex flex-col gap-4 rounded-[8px] border border-[#bcc6cc] bg-bg-gray-2 p-8">
                         <div className="flex items-center gap-2">
-                          <img src={privacySectionIcons.forbiddenServices} alt="" className="h-5 w-5" />
+                          <Icon name="x-circle" className="h-5 w-5" />
                           <h3 className="text-[20px] font-semibold text-navy">수행 불가 서비스</h3>
                         </div>
                         <ul className="flex flex-col gap-3 opacity-80">
@@ -181,7 +182,7 @@ export default function PrivacyPolicy() {
                 <section id="privacy-section-3" className="scroll-mt-24">
                   <FadeUp className="flex flex-col gap-4">
                     <div className="flex items-center gap-2">
-                      <img src={privacySectionIcons.dataStorage} alt="" className="h-[18px] w-[18px]" />
+                      <Icon name="database" className="h-5 w-5" />
                       <span className="text-[12px] font-bold tracking-[1.2px] text-brand-blue">
                         Section 03
                       </span>
@@ -211,7 +212,7 @@ export default function PrivacyPolicy() {
 
                 <FadeUp className="relative flex h-[220px] items-end overflow-hidden rounded-[10px] border border-[#bcc6cc]">
                   <img
-                    src={privacyVisualImage}
+                    src={servicesBentoImage}
                     alt=""
                     className="absolute inset-0 h-full w-full object-cover opacity-40 grayscale"
                   />
