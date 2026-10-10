@@ -20,7 +20,7 @@ const CASES = [
   {
     img: caseImages.locate,
     title: "소재 파악",
-    desc: "가족이나 정당한 채무 관계자의 연락 두절로 인한 위치 확인 의뢰.",
+    desc: "가족의 연락 두절 등으로 관련 사실과 공개 정보 확인이 필요한 경우.",
   },
 ];
 
@@ -37,6 +37,8 @@ export default function CaseExamples() {
                 <img
                   src={c.img}
                   alt={c.title}
+                  loading="lazy"
+                  decoding="async"
                   className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
               </div>

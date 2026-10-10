@@ -45,7 +45,15 @@ html {
 .animate-marquee-slow {
   animation: marquee-left 55s linear infinite;
 }
+.marquee-track[data-visible="false"],
+.marquee-row[data-pause-on-hover="true"]:hover .marquee-track {
+  animation-play-state: paused;
+}
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
   .animate-marquee-left,
   .animate-marquee-right,
   .animate-marquee-slow {

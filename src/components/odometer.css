@@ -1,0 +1,100 @@
+.odometer-number {
+  display: inline-block;
+  vertical-align: bottom;
+  font-variant-numeric: tabular-nums;
+}
+
+.odometer-value {
+  display: inline-flex;
+  align-items: flex-start;
+  height: 1.2em;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.odometer-digit {
+  display: inline-block;
+  flex: 0 0 1ch;
+  width: 1ch;
+  height: 1.2em;
+  overflow: hidden;
+}
+
+.odometer-reel {
+  display: flex;
+  flex-direction: column;
+  transform: translateY(0);
+}
+
+.odometer-reel-digit {
+  flex: 0 0 1.2em;
+  height: 1.2em;
+  line-height: 1.2em;
+  text-align: center;
+}
+
+.odometer-punctuation {
+  flex: 0 0 0.5ch;
+  width: 0.5ch;
+  height: 1.2em;
+  line-height: 1.2em;
+  text-align: center;
+}
+
+.odometer-suffix {
+  margin-left: 0.25em;
+  height: 1.2em;
+  line-height: 1.2em;
+}
+
+.odometer-number[data-state="running"] .odometer-reel {
+  animation: odometer-roll var(--odometer-duration) ease-out forwards;
+  will-change: transform;
+}
+
+.odometer-number[data-state="complete"] .odometer-reel {
+  transform: translateY(var(--odometer-final-offset));
+}
+
+@keyframes odometer-roll {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(var(--odometer-final-offset));
+  }
+}
+
+.trust-stat {
+  position: relative;
+}
+
+.trust-stat:nth-child(even)::before {
+  position: absolute;
+  top: 25%;
+  bottom: 25%;
+  left: -0.75rem;
+  width: 1px;
+  background-color: rgb(255 255 255 / 35%);
+  content: "";
+}
+
+@media (min-width: 768px) {
+  .trust-stat + .trust-stat::before {
+    position: absolute;
+    top: 25%;
+    bottom: 25%;
+    left: -1rem;
+    width: 1px;
+    background-color: rgb(255 255 255 / 45%);
+    content: "";
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .odometer-number[data-state] .odometer-reel {
+    animation: none;
+    transform: translateY(var(--odometer-final-offset));
+    will-change: auto;
+  }
+}

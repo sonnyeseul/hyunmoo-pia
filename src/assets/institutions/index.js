@@ -6,6 +6,7 @@ import scourt from "./03-scourt.png";
 import kista from "./04-kista.png";
 import kait from "./05-kait.png";
 import busanFamilyCourt from "./06-busan-family-court.png";
+import kspiaAsia from "./07-kspia-asia.jpeg";
 
 export const institutionLogos = [
   { src: gov24, alt: "정부24" },
@@ -14,4 +15,5 @@ export const institutionLogos = [
   { src: kista, alt: "한국특허전략개발원 (KISTA)" },
   { src: kait, alt: "한국정보통신진흥협회 (KAIT)" },
   { src: busanFamilyCourt, alt: "부산가정법원" },
+  { src: kspiaAsia, alt: "한국공인탐정협회 · 아시아공인탐정협회" },
 ];

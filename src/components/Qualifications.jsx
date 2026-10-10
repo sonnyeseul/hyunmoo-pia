@@ -1,24 +1,43 @@
+import { useEffect, useRef, useState } from "react";
 import { associationEmblems } from "../assets/site";
 import { certificateGallery, certificateCards } from "../assets/certificates";
 import { institutionLogos } from "../assets/institutions";
 import FadeUp from "./FadeUp";
 
 function MarqueeRow({ items, direction = "left", pauseOnHover = true, itemClassName, renderItem }) {
+  const rowRef = useRef(null);
+  const [visible, setVisible] = useState(false);
   const animClass = direction === "right" ? "animate-marquee-right" : "animate-marquee-left";
 
-  // Render the list twice back-to-back so translateX(-50%) loops seamlessly.
-  const doubled = [...items, ...items];
+  useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => setVisible(entry.isIntersecting));
+    observer.observe(rowRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <div className={`${pauseOnHover ? "group" : ""} -mx-6 overflow-hidden md:-mx-10`}>
+    <div
+      ref={rowRef}
+      data-pause-on-hover={pauseOnHover}
+      className="marquee-row -mx-6 overflow-hidden px-6 motion-reduce:overflow-x-auto md:-mx-10 md:px-10"
+    >
       <div
-        className={`flex w-max gap-4 px-6 md:px-10 ${animClass} ${
-          pauseOnHover ? "group-hover:[animation-play-state:paused]" : ""
-        }`}
+        data-visible={visible}
+        className={`marquee-track flex w-max ${animClass}`}
       >
-        {doubled.map((item, i) => (
-          <div key={i} className={itemClassName}>
-            {renderItem(item, i)}
+        {/* Each copy includes the trailing gap, making the two halves identical. */}
+        {[0, 1].map((copy) => (
+          <div
+            key={copy}
+            aria-hidden={copy === 1 ? true : undefined}
+            data-copy={copy}
+            className="flex shrink-0 gap-4 pr-4 data-[copy=1]:motion-reduce:hidden"
+          >
+            {items.map((item, i) => (
+              <div key={item.alt} className={itemClassName}>
+                {renderItem(item, i)}
+              </div>
+            ))}
           </div>
         ))}
       </div>
@@ -51,12 +70,11 @@ export default function Qualifications() {
         </FadeUp>
 
         <FadeUp delay={100} as="p" className="mx-auto max-w-[992px] whitespace-pre-line text-center text-[16px] leading-relaxed text-white">
-          {`현무 PIA는 한국공인탐정협회 소속으로, 관련 협회와 기관이 정한 자격 취득과 등록 절차를 하나씩 성실히 이행해왔습니다.
-PIA 탐정사 자격증과 한국자격검정평가진흥원 탐정사 1급 · 2급 자격을 갖춘 `}
+          {`현무 PIA는 한국공인탐정협회 소속으로, PIA 탐정사 등 아래의 자격과 인증 자료를 공개하고 있습니다.
+`}
           <span className="font-semibold">대표 손성오</span>
-          {`가 사건을 직접 맡아 처리하는 프라이빗 체제로 운영됩니다.
-이러한 준비 과정은 단순히 사무실 간판을 걸기 위한 절차가 아니라,
-현장에서 반드시 지켜야 할 윤리적·법적 기준을 체계적으로 이해하고 있다는 뜻이기도 합니다.`}
+          {`가 상담과 조사를 직접 맡으며, 의뢰 목적에 맞는 조사 범위와 진행 방법을 안내합니다.
+공개된 자격 자료의 생년월일과 식별 번호는 개인정보 보호를 위해 가렸습니다.`}
         </FadeUp>
 
         {/* Framed certificates — auto-scrolls left, pauses on hover */}
@@ -85,6 +103,8 @@ PIA 탐정사 자격증과 한국자격검정평가진흥원 탐정사 1급 · 2
             <img
               src={item.src}
               alt={item.alt}
+              width={item.width}
+              height={item.height}
               loading="lazy"
               className="h-full w-auto object-contain"
               draggable={false}
@@ -116,15 +136,19 @@ PIA 탐정사 자격증과 한국자격검정평가진흥원 탐정사 1급 · 2
         <div className="flex flex-col gap-9 border-t border-white/10 pt-14">
           <FadeUp className="flex flex-col items-center gap-4">
             <span className="text-[11px] font-bold tracking-[3px] text-[#7fb0f0]">
-              PARTNER INSTITUTIONS
+              ASSOCIATIONS & RELATED ORGANIZATIONS
             </span>
             <h3 className="text-center text-[24px] md:text-[30px] font-bold tracking-[-0.4px] text-white">
-              협력 · 신고 · 등록 기관
+              협회 및 관련 기관
             </h3>
             <span
               className="h-px w-20 bg-gradient-to-r from-transparent via-white/45 to-transparent"
               aria-hidden
             />
+            <p className="max-w-[640px] break-keep text-center text-sm leading-relaxed text-white/70">
+              소속 협회와 업무 관련 정보 기관을 소개합니다.
+              기관 로고는 각 기관을 식별하기 위한 것으로, 공식 제휴나 조사 업무의 보증을 의미하지 않습니다.
+            </p>
           </FadeUp>
           <MarqueeRow
             items={institutionLogos}

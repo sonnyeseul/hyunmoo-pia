@@ -1,11 +1,6 @@
 import Icon from "./Icon";
 import FadeUp from "./FadeUp";
-
-// NOTE: Only a KakaoTalk link was provided. Swap TELEGRAM_LINK for the real
-// Telegram invite/username link once it's available — it currently points
-// nowhere (href="#") so the button doesn't look broken in the meantime.
-const KAKAO_LINK = "https://invite.kakao.com/tc/tNPLfOrlna";
-const TELEGRAM_LINK = "#";
+import { KAKAO_LINK, PHONE_LINK, PHONE_NUMBER, SMS_LINK, TELEGRAM_LINK } from "../config/contact";
 
 export default function Channels() {
   return (
@@ -13,26 +8,26 @@ export default function Channels() {
       <div className="mx-auto flex max-w-[1200px] flex-wrap items-center justify-center gap-8 md:gap-12 px-0 md:px-6">
         <FadeUp
           as="a"
-          href="tel:010-3583-3542"
+          href={PHONE_LINK}
           className="group flex items-center gap-3 text-[16px] text-white transition-colors duration-200 hover:text-brand-blue-light"
         >
           <Icon
             name="phone"
             className="h-[18px] w-[18px] transition-transform duration-200 group-hover:scale-125"
           />
-          대표 전화: 010-3583-3542
+          대표 전화: {PHONE_NUMBER}
         </FadeUp>
         <FadeUp
           as="a"
           delay={80}
-          href="sms:010-3583-3542"
+          href={SMS_LINK}
           className="group flex items-center gap-3 text-[16px] text-white transition-colors duration-200 hover:text-brand-blue-light"
         >
           <Icon
             name="message"
             className="h-5 w-5 transition-transform duration-200 group-hover:scale-125"
           />
-          문자 상담: 010-3583-3542
+          상담 문의 안내
         </FadeUp>
         <FadeUp
           as="a"
@@ -49,11 +44,11 @@ export default function Channels() {
           Kakaotalk
         </FadeUp>
         <FadeUp
-          as="a"
+          as={TELEGRAM_LINK ? "a" : "span"}
           delay={240}
-          href={TELEGRAM_LINK}
-          target="_blank"
-          rel="noopener noreferrer"
+          href={TELEGRAM_LINK ?? undefined}
+          target={TELEGRAM_LINK ? "_blank" : undefined}
+          rel={TELEGRAM_LINK ? "noopener noreferrer" : undefined}
           className="group flex items-center gap-1 text-[16px] text-white transition-colors duration-200 hover:text-brand-blue-light"
         >
           <Icon

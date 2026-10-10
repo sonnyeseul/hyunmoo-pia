@@ -1,8 +1,9 @@
 import { useState } from "react";
-import businessRegistrationImg from "../assets/certificates/business-registration.jpg";
-import piaLicenseImg from "../assets/certificates/pia-license.jpg";
+import { businessRegistrationImage, piaLicenseImage } from "../assets/certificates";
 import CertificateModal from "./CertificateModal";
 import { goTo } from "../utils/navigation";
+import BrandWordmark from "./BrandWordmark";
+import { PHONE_LINK, PHONE_NUMBER } from "../config/contact";
 
 const SITEMAP_LINKS = [
   { label: "서비스 분야", href: "#services" },
@@ -10,23 +11,21 @@ const SITEMAP_LINKS = [
   { label: "업무 절차", href: "#principles" },
 ];
 
-// Only "개인정보처리방침" links anywhere for now — the other two legal links
-// have no destination yet, so they stay inert buttons.
 const LEGAL_LINKS = [
-  { label: "개인정보처리방침", onClick: () => goTo("privacy-policy") },
-  { label: "업무 범위 안내", onClick: null },
-  { label: "자료 보관·폐기 정책", onClick: null },
+  { label: "개인정보처리방침", href: "privacy-policy" },
+  { label: "업무 범위 안내", href: "privacy-policy?section=scope" },
+  { label: "자료 보관·폐기 정책", href: "privacy-policy?section=storage" },
 ];
 
 const BADGES = [
   {
     label: "정식 사업자 등록 업체",
-    image: businessRegistrationImg,
+    image: businessRegistrationImage,
     alt: "사업자등록증 (현무 민간조사 탐정사무소)",
   },
   {
     label: "PIA 공인 탐정사 인증",
-    image: piaLicenseImg,
+    image: piaLicenseImage,
     alt: "PIA 탐정사 자격증 (손성오)",
   },
 ];
@@ -47,15 +46,10 @@ export default function Footer() {
         {/* Footer content stays static (no fade-up) alongside the fixed nav. */}
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-12">
           <div className="flex flex-col gap-4 md:col-span-5">
-            <div className="flex items-baseline gap-1.5 text-[28px] md:text-[32px] font-bold tracking-tight text-navy">
-              <span>HYUNMOO&nbsp;PIA</span>
-              <span className="text-[18px] md:text-[20px] font-semibold tracking-normal text-brand-blue">
-                탐정
-              </span>
-            </div>
+            <BrandWordmark footer />
             <p className="max-w-[460px] text-[16px] leading-relaxed text-slate">
-              현무 PIA 민간조사 탐정사무소는 2024년부터 부산을 본거지로 전국을 아우르는 전문
-              증거 수집 및 사실조사 서비스를 제공하고 있습니다.
+              현무민간조사 탐정사무소는 부산을 기반으로 전국의 상담을 받습니다.
+              사안에 맞는 자료 수집과 사실관계 확인을 돕습니다.
             </p>
           </div>
 
@@ -82,7 +76,7 @@ export default function Footer() {
                 <li key={link.label}>
                   <button
                     type="button"
-                    onClick={link.onClick ?? undefined}
+                    onClick={() => goTo(link.href)}
                     className="text-left text-[13px] text-slate transition-colors duration-200 hover:text-brand-blue"
                   >
                     {link.label}
@@ -95,8 +89,8 @@ export default function Footer() {
           <div className="flex flex-col gap-6 md:col-span-3">
             <FooterColumnHeading>연락처</FooterColumnHeading>
             <div className="flex flex-col gap-1 text-[13px] text-slate">
-              <a href="tel:010-3583-3542" className="w-fit transition-colors duration-200 hover:text-brand-blue">
-                대표전화: 010-3583-3542
+              <a href={PHONE_LINK} className="w-fit transition-colors duration-200 hover:text-brand-blue">
+                대표전화: {PHONE_NUMBER}
               </a>
               <a
                 href="mailto:actoz2001@gmail.com"

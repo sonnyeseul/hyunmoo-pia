@@ -2,13 +2,6 @@ import { servicesBentoImage } from "../assets/site";
 import FadeUp from "./FadeUp";
 import { goTo } from "../utils/navigation";
 
-function handleActivateKey(e) {
-  if (e.key === "Enter" || e.key === " ") {
-    e.preventDefault();
-    goTo("service-detail");
-  }
-}
-
 export default function KeyServices() {
   return (
     <section id="services" className="scroll-mt-20 bg-white px-6 md:px-10 py-24">
@@ -19,8 +12,7 @@ export default function KeyServices() {
           <FadeUp
             as="button"
             type="button"
-            onClick={() => goTo("service-detail")}
-            onKeyDown={handleActivateKey}
+            onClick={() => goTo("service-detail", { category: "family" })}
             className="group lg:col-span-7 flex cursor-pointer flex-col justify-between gap-6 rounded-[10px] border border-[#c5c6cd] bg-bg-gray p-8 text-left transition-all duration-300 hover:-translate-y-1 hover:border-brand-blue/40 hover:shadow-xl hover:shadow-navy/5"
           >
             <div className="flex flex-col gap-3">
@@ -51,23 +43,29 @@ export default function KeyServices() {
           <FadeUp delay={100} className="group lg:col-span-5 overflow-hidden rounded-[10px] border border-[#c5c6cd] transition-shadow duration-300 hover:shadow-xl hover:shadow-navy/10">
             <img
               src={servicesBentoImage}
-              alt="증거자료 및 사실관계 확인"
-              className="h-full min-h-[220px] w-full object-cover transition-transform duration-500 group-hover:scale-105"
+              alt="노트북으로 조사 자료를 검토하는 모습"
+              width="500"
+              height="500"
+              loading="lazy"
+              className="aspect-[466/350] h-auto min-h-[220px] w-full object-cover object-[50%_30%] transition-transform duration-500 group-hover:scale-105"
             />
           </FadeUp>
 
           {[
             {
+              category: "corporate",
               tag: "기업 조사",
               title: "기업 내부 비위 및 디지털 포렌식",
               desc: "산업보안, 영업기밀 피해 및 금융사기 정황을 디지털 분석을 통해 확인합니다.",
             },
             {
+              category: "locate",
               tag: "소재 및 보호",
               title: "소재 파악 및 신변보호",
               desc: "실종·가출 등 연락 두절된 이의 소재를 합법적 범위 내에서 추적 및 파악합니다.",
             },
             {
+              category: "security",
               tag: "특수 조사",
               title: "도청 및 불법촬영 탐지",
               desc: "전문 장비를 활용하여 기업 및 개인 공간의 보안 위협 요소를 점검합니다.",
@@ -78,8 +76,7 @@ export default function KeyServices() {
               as="button"
               type="button"
               delay={i * 100}
-              onClick={() => goTo("service-detail")}
-              onKeyDown={handleActivateKey}
+              onClick={() => goTo("service-detail", { category: card.category })}
               className="group lg:col-span-4 flex cursor-pointer flex-col gap-3 rounded-[10px] border border-[#c5c6cd] bg-bg-gray px-8 pb-8 pt-10 text-left transition-all duration-300 hover:-translate-y-1 hover:border-brand-blue/40 hover:shadow-xl hover:shadow-navy/5"
             >
               <span className="text-[12px] font-bold tracking-[1.2px] text-brand-blue">

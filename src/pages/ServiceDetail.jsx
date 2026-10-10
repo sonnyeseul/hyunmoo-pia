@@ -4,67 +4,168 @@ import FadeUp from "../components/FadeUp";
 import { goTo } from "../utils/navigation";
 import Icon from "../components/Icon";
 import { servicesBentoImage } from "../assets/site";
+import { PHONE_LINK } from "../config/contact";
 
-const CORE_COMPETENCIES = [
-  {
-    icon: "home",
-    title: "가족 신변 확인",
-    desc: "가족의 안전과 화합을 위해 배경, 일과 패턴, 주변 인물 관계를 철저히 확인합니다.",
-  },
-  {
-    icon: "route",
-    title: "가출 및 소재 파악",
-    desc: "연락이 두절된 가족 구성원이나 의도적으로 자취를 감춘 인물에 대한 체계적인 추적 업무를 수행합니다.",
-  },
-  {
-    icon: "rings",
-    title: "결혼 전 배경 조사",
-    desc: "인생의 중대한 결정을 앞두고, 법적 테두리 내에서 신뢰의 토대를 마련하기 위한 평판 및 배경 확인을 진행합니다.",
-  },
-];
+const DATA_POLICY = "자료는 목적 달성 후 고객과 협의한 방식으로 반환하거나 폐기하며, 필요한 보관 항목·기간은 계약 시 안내합니다.";
 
-const NEED_INVESTIGATION = [
-  {
-    no: "01",
-    title: "급격한 행동 및 일정 변화",
-    desc: "논리적 설명이 불가능한 갑작스러운 행동 패턴, 재정 상황, 스케줄의 변화가 감지될 때.",
+const SERVICES = {
+  family: {
+    label: "개인 · 가사 사실조사",
+    title: "개인·가사 사실조사",
+    description: "가족이나 개인 관계에서 확인이 필요한 사실을 차분히 정리합니다. 상담을 통해 조사 목적과 확인 가능한 범위를 살피고, 사안에 맞는 자료 수집 방법을 안내합니다.",
+    competencies: [
+      { icon: "home", title: "가사 분쟁 사실 확인", desc: "가족 관계와 가사 분쟁에서 쟁점이 되는 상황을 정리하고 확인이 필요한 부분을 살핍니다." },
+      { icon: "file-check", title: "자료 수집 및 정리", desc: "적법하게 확보할 수 있는 자료를 검토하고, 날짜와 경위를 구분해 사실관계를 정리합니다." },
+      { icon: "rings", title: "관계 및 배경 확인", desc: "중요한 결정을 앞둔 상황에서 공개 정보와 정당하게 제공받은 자료를 바탕으로 확인을 돕습니다." },
+    ],
+    support: [
+      { icon: "scale", title: "분쟁 대응 자료 준비", desc: "가사 분쟁과 관련된 자료를 정리합니다. 자료의 활용 방법과 법적 판단은 담당 법률 전문가와 확인할 수 있도록 안내합니다." },
+      { icon: "users", title: "상황에 맞는 조사 설계", desc: "이미 확인한 내용과 추가로 확인할 내용을 구분해 필요한 조사 범위를 함께 정합니다." },
+    ],
+    situations: [
+      { title: "사실과 추측을 구분해야 할 때", desc: "개인 관계에서 의문이 생겼지만 확인된 정보가 부족한 경우." },
+      { title: "가사 분쟁 자료가 필요한 때", desc: "양육이나 재산 등 쟁점과 관련된 사실관계를 정리하려는 경우." },
+      { title: "중요한 결정을 앞두고 있을 때", desc: "정당한 목적에 따라 관계나 배경에 관한 확인이 필요한 경우." },
+    ],
+    preparation: [
+      { icon: "clipboard", label: "확인하려는 사실과 조사 목적" },
+      { icon: "file-text", label: "정당하게 보유하고 있는 관련 자료" },
+      { icon: "calendar", label: "주요 사건의 날짜와 경위" },
+      { icon: "users", label: "당사자 관계와 의뢰 권한" },
+    ],
+    faqs: [
+      { q: "어떤 자료를 먼저 준비하면 되나요?", a: "확인하려는 내용과 그동안의 경위를 정리해 주세요. 이미 보유한 자료가 있다면 상담 시 수집 경위와 함께 알려주시면 됩니다." },
+      { q: "조사 결과를 소송에 사용할 수 있나요?", a: "자료의 활용 가능성은 수집 방법과 사건에 따라 달라집니다. 증거 인정 여부나 법적 효력을 보장하지 않으며, 법률 전문가의 검토가 필요합니다." },
+      { q: "조사 기간은 얼마나 걸리나요?", a: "확인할 내용, 자료의 확보 가능성, 진행 범위에 따라 달라집니다. 상담 후 예상 일정과 중간 보고 방법을 협의합니다." },
+    ],
+    consultation: "개인·가사 상담",
+    ctaTitle: "확인해야 할 사실부터 함께 정리합니다",
+    ctaDescription: "현재 상황과 확인하고 싶은 내용을 알려주세요. 가능한 조사 범위와 진행 방향을 안내합니다.",
   },
-  {
-    no: "02",
-    title: "법적 대응을 위한 사전 준비",
-    desc: "본격적인 법적 절차를 시작하기 전, 자신의 주장을 뒷받침할 객관적 증거가 필요할 때.",
+  corporate: {
+    label: "기업 조사",
+    title: "기업 내부 비위 및 디지털 포렌식",
+    description: "기업 내부의 이상 징후와 영업기밀·금융 피해 정황을 확인합니다. 의뢰 권한과 자료의 수집 경위를 먼저 검토하고, 관련 기록과 디지털 자료를 분석할 범위를 협의합니다.",
+    competencies: [
+      { icon: "clipboard", title: "내부 비위 정황 확인", desc: "업무 기록과 관련 자료를 대조해 내부 비위가 의심되는 경위를 정리합니다." },
+      { icon: "database", title: "디지털 자료 검토", desc: "검토 권한이 확인된 기기와 파일의 분석 가능 여부를 살피고 필요한 작업 범위를 안내합니다." },
+      { icon: "file-check", title: "금융 피해 자료 정리", desc: "제공받은 거래·계약 자료를 바탕으로 피해 경위와 확인이 필요한 쟁점을 정리합니다." },
+    ],
+    support: [
+      { icon: "lock", title: "영업기밀 피해 확인", desc: "유출이 의심되는 자료와 접근 기록을 검토해 사실관계 확인 방향을 정합니다." },
+      { icon: "folder", title: "대응 자료 구성", desc: "조사에서 확인된 내용을 근거 자료와 함께 정리해 기업의 후속 검토에 활용할 수 있도록 돕습니다." },
+    ],
+    situations: [
+      { title: "내부 기록에 이상 징후가 있을 때", desc: "업무·계약·거래 기록 사이의 불일치가 발견된 경우." },
+      { title: "기밀 유출 정황이 있을 때", desc: "자료가 외부로 전달됐을 가능성을 확인하려는 경우." },
+      { title: "금융 피해 경위를 정리할 때", desc: "관련 계약과 거래 자료를 체계적으로 검토해야 하는 경우." },
+    ],
+    preparation: [
+      { icon: "id-card", label: "의뢰인 신원과 기업의 의뢰 권한" },
+      { icon: "file-text", label: "관련 계약·거래·업무 기록" },
+      { icon: "database", label: "검토 대상 자료·기기와 접근 권한" },
+      { icon: "calendar", label: "이상 징후가 발생한 시점과 경위" },
+    ],
+    faqs: [
+      { q: "직원의 기기를 바로 분석할 수 있나요?", a: "소유 관계, 사용 조건, 분석 권한과 동의 여부 등을 먼저 확인해야 합니다. 권한이 확인되지 않은 기기에 임의로 접근하거나 분석하지 않습니다." },
+      { q: "삭제된 파일도 복구할 수 있나요?", a: "기기 상태와 저장 방식에 따라 분석·복구 가능 여부가 달라집니다. 상담과 사전 확인을 통해 작업 범위를 안내하며 복구를 보장하지 않습니다." },
+      { q: "조사 결과는 어떻게 받나요?", a: "협의한 범위에서 확인한 내용과 근거 자료, 확인되지 않은 부분을 구분해 전달합니다. 보고 형식과 공유 대상은 진행 전에 정합니다." },
+    ],
+    consultation: "기업 조사 상담",
+    ctaTitle: "기업의 상황에 맞는 확인 절차를 안내합니다",
+    ctaDescription: "의심되는 정황과 보유한 자료를 알려주세요. 검토 권한과 필요한 조사 범위부터 확인합니다.",
   },
-  {
-    no: "03",
-    title: "안전 위협 및 보호 필요",
-    desc: "위협 의심, 미확인 추적기 발견, 혹은 미성년 자녀의 주변 관계가 우려될 때.",
+  locate: {
+    label: "소재 및 보호",
+    title: "소재 파악 및 신변보호",
+    description: "연락이 끊긴 가족의 안전 확인이나 신변보호가 필요한 상황을 상담합니다. 의뢰 목적과 당사자 관계를 확인한 뒤, 정당하게 이용할 수 있는 정보와 안전을 우선하는 진행 방향을 살핍니다.",
+    competencies: [
+      { icon: "route", title: "소재 확인 방향 검토", desc: "마지막 연락과 알려진 경위를 바탕으로 확인 가능한 정보와 절차를 정리합니다." },
+      { icon: "users", title: "가족의 안전 확인", desc: "가족의 연락 두절 상황을 파악하고, 필요한 경우 공적 신고 절차를 우선 안내합니다." },
+      { icon: "shield-lock", title: "신변보호 상담", desc: "위협 상황과 일상 동선을 살펴 안전을 위해 필요한 보호 범위를 협의합니다." },
+    ],
+    support: [
+      { icon: "clipboard", title: "신고·상담 자료 준비", desc: "연락 두절 또는 위협의 경위를 시간순으로 정리해 관계 기관 상담에 필요한 자료 준비를 돕습니다." },
+      { icon: "lock", title: "당사자의 권리 확인", desc: "의뢰 목적과 관계를 확인하고, 상대방의 개인정보와 의사를 침해하는 요청은 진행하지 않습니다." },
+    ],
+    situations: [
+      { title: "가족과 연락이 끊겼을 때", desc: "마지막 연락 이후의 상황과 안전 여부를 확인하려는 경우." },
+      { title: "지속적인 위협을 받고 있을 때", desc: "위협 정황을 정리하고 보호 방법을 상담하려는 경우." },
+      { title: "신고 자료를 정리해야 할 때", desc: "관계 기관에 전달할 연락 기록과 사건 경위가 필요한 경우." },
+    ],
+    preparation: [
+      { icon: "users", label: "당사자와의 관계 및 의뢰 목적" },
+      { icon: "calendar", label: "마지막 연락 시점과 알려진 경위" },
+      { icon: "file-text", label: "정당하게 보유한 연락·위협 기록" },
+      { icon: "clipboard", label: "기존 신고 여부와 필요한 보호 내용" },
+    ],
+    faqs: [
+      { q: "실종이나 급박한 위험에도 상담을 받아야 하나요?", a: "즉각적인 위험이 있거나 실종이 의심되면 경찰 등 관계 기관에 먼저 신고해 주세요. 민간조사 상담은 공적 신고와 수사를 대신하지 않습니다." },
+      { q: "이름만 알면 누구든 찾아주나요?", a: "의뢰 목적과 관계, 정보 확인 권한을 먼저 검토합니다. 정당한 근거가 없거나 상대방에게 위해를 줄 우려가 있는 요청은 진행하지 않습니다." },
+      { q: "소재 확인을 보장하나요?", a: "확인 가능한 정보와 당사자의 상황에 따라 진행 가능 여부가 달라집니다. 특정인의 소재 확인이나 연락 성사를 보장하지 않습니다." },
+    ],
+    consultation: "소재·보호 상담",
+    ctaTitle: "안전을 우선해 필요한 절차를 살핍니다",
+    ctaDescription: "연락 두절이나 위협이 발생한 경위를 알려주세요. 현재 상황에서 가능한 확인과 보호 방향을 안내합니다.",
   },
-];
+  security: {
+    label: "특수 조사",
+    title: "도청 및 불법촬영 탐지",
+    description: "개인 공간이나 기업 시설에서 의심되는 도청·불법촬영 장치를 점검합니다. 공간의 이용·관리 권한을 확인하고, 구조와 의심 정황에 맞춰 점검 범위를 정합니다.",
+    competencies: [
+      { icon: "eye-off", title: "불법촬영 의심 지점 점검", desc: "공간 구조와 의심되는 물품을 살펴 점검이 필요한 지점을 확인합니다." },
+      { icon: "lock", title: "도청 의심 정황 점검", desc: "의심 장치나 이상 징후를 바탕으로 장비 점검이 필요한 범위를 검토합니다." },
+      { icon: "home", title: "공간 보안 점검", desc: "주거·사무 공간의 사용 환경을 살펴 보안상 확인이 필요한 부분을 정리합니다." },
+    ],
+    support: [
+      { icon: "file-check", title: "점검 결과 정리", desc: "점검한 위치와 확인 내용을 구분해 전달하고, 추가 확인이 필요한 사항을 안내합니다." },
+      { icon: "camera", title: "의심 장치 발견 시 안내", desc: "발견 경위와 현장 상태를 기록하도록 돕고, 관계 기관 신고가 필요한 상황을 안내합니다." },
+    ],
+    situations: [
+      { title: "낯선 장치나 물품을 발견했을 때", desc: "설치 목적을 알 수 없는 장치가 공간 안에서 발견된 경우." },
+      { title: "민감한 대화 공간을 점검할 때", desc: "회의실이나 상담실 등에서 보안 상태를 확인하려는 경우." },
+      { title: "촬영이 의심되는 정황이 있을 때", desc: "사적 공간에서 불법촬영 가능성을 점검해야 하는 경우." },
+    ],
+    preparation: [
+      { icon: "map-pin", label: "점검할 공간의 위치와 규모" },
+      { icon: "id-card", label: "공간 이용·관리 권한" },
+      { icon: "camera", label: "의심 장치의 사진과 발견 경위" },
+      { icon: "calendar", label: "점검 가능한 시간과 출입 조건" },
+    ],
+    faqs: [
+      { q: "점검하면 모든 장치를 찾을 수 있나요?", a: "장치의 작동 상태와 설치 방식, 공간 구조에 따라 점검에 한계가 있습니다. 모든 장치의 발견을 보장하지 않으며 점검 범위와 한계를 사전에 안내합니다." },
+      { q: "의심 장치를 발견하면 어떻게 해야 하나요?", a: "임의로 분해하거나 상태를 바꾸기보다 발견 장소와 경위를 기록해 주세요. 범죄가 의심되면 관계 기관에 신고하고 안내를 받는 것이 우선입니다." },
+      { q: "다른 사람이 사용하는 공간도 점검할 수 있나요?", a: "의뢰인의 이용·관리 권한과 출입 허가 여부를 확인한 공간만 점검합니다. 허가 없이 타인의 공간에 들어가거나 장비를 설치하지 않습니다." },
+    ],
+    consultation: "보안 탐지 상담",
+    ctaTitle: "점검할 공간과 의심 정황을 알려주세요",
+    ctaDescription: "공간의 규모와 사용 환경을 확인하고 필요한 점검 범위와 준비사항을 안내합니다.",
+  },
+};
 
 const INVESTIGATION_PRINCIPLES = [
   {
     icon: "scale",
-    title: "엄격한 법적 준수:",
-    desc: "수집된 증거의 효력을 보장하기 위해 민간조사 관련 법규 내에서만 활동합니다.",
+    title: "업무 범위 확인:",
+    desc: "의뢰 목적과 조사 권한을 검토하고 진행 가능한 범위를 먼저 안내합니다.",
   },
   {
     icon: "lock",
-    title: "정교한 보안 유지:",
-    desc: "대상자가 조사 사실을 인지하지 못하도록 최소한의 흔적만을 남기는 기법을 사용합니다.",
+    title: "필요한 정보만 취급:",
+    desc: "사안에 필요한 정보를 중심으로 자료의 공유 범위와 전달 방법을 협의합니다.",
   },
   {
     icon: "file-check",
-    title: "투명한 리포팅:",
-    desc: "실시간 상황 공유와 함께 타임스탬프가 포함된 멀티미디어 증거 보고서를 제공합니다.",
+    title: "확인 결과 구분:",
+    desc: "확인한 사실과 확인되지 않은 부분을 구분해 보고합니다.",
   },
 ];
 
 const LEGAL_ALLOWED = [
-  "공개된 장소에서의 합법적 관찰 및 동선 파악",
-  "공개 출처 정보(OSINT) 수집 및 분석",
-  "참고인 면담 및 진술 확보",
-  "공공 기록물 및 자산 정보 확인",
-  "법적 요건을 충족한 위치 정보 확인 (제한적)",
+  "공개된 정보와 정당하게 제공받은 자료 검토",
+  "권한이 확인된 자료·기기·공간의 점검",
+  "동의한 관계자와의 면담 및 사실 확인",
+  "사안에 필요한 경위 정리와 결과 보고",
 ];
 
 const LEGAL_FORBIDDEN = [
@@ -76,32 +177,10 @@ const LEGAL_FORBIDDEN = [
 ];
 
 const PROCESS_STEPS = [
-  { no: "1", title: "상담 및 접수", desc: "사안 분석 및 이해관계 상충 여부를 확인합니다." },
-  { no: "2", title: "전략 수립", desc: "인력 투입 계획 및 법적 리스크를 검토합니다." },
-  { no: "3", title: "현장 조사", desc: "실시간 조사 수행 및 핵심 증거를 수집합니다." },
-  { no: "4", title: "결과 보고", desc: "최종 보고서 전달 및 법적 후속 조치를 자문합니다." },
-];
-
-const PREP_DOCS = [
-  { icon: "id-card", label: "대상자의 사진 및 기본 인적사항" },
-  { icon: "map-pin", label: "주요 거주지 및 직장 위치 정보" },
-  { icon: "car", label: "사용 차량 번호 및 차종 정보" },
-  { icon: "calendar", label: "대상자의 일반적인 일과 패턴" },
-];
-
-const SERVICE_FAQS = [
-  {
-    q: "조사 기간은 보통 얼마나 소요되나요?",
-    a: "대부분의 가정 내 조사는 사안의 복잡성과 대상자의 활동 주기에 따라 약 3일에서 10일 이내에 완료됩니다.",
-  },
-  {
-    q: "상담 및 조사 내용은 비밀이 보장되나요?",
-    a: "철저히 보장됩니다. 보안 메신저(텔레그램/카카오톡 비밀채팅)를 사용하며, 모든 기록은 보고서 전달 후 즉시 영구 폐기됩니다.",
-  },
-  {
-    q: "조사 결과물을 법정 증거로 활용할 수 있나요?",
-    a: "네, 가능합니다. 개인정보보호법 및 관계 법령을 준수하여 조사를 진행하므로 법적 효력을 갖춘 증거로 사용하실 수 있습니다.",
-  },
+  { no: "1", title: "상담 및 확인", desc: "의뢰 목적과 권한, 현재 상황을 확인합니다." },
+  { no: "2", title: "범위 및 조건 협의", desc: "진행 범위와 일정, 비용을 안내합니다." },
+  { no: "3", title: "조사 및 점검", desc: "협의한 범위에서 자료를 확인합니다." },
+  { no: "4", title: "결과 전달", desc: "확인 결과와 자료 처리 방법을 안내합니다." },
 ];
 
 function SectionHeading({ children }) {
@@ -113,7 +192,11 @@ function SectionHeading({ children }) {
   );
 }
 
-export default function ServiceDetail() {
+export default function ServiceDetail({ category = "family" }) {
+  const selectedCategory = Object.hasOwn(SERVICES, category) ? category : "family";
+  const service = SERVICES[selectedCategory];
+  const contactRoute = () => goTo("contact", { category: selectedCategory });
+  const faqs = [...service.faqs, { q: "상담·조사 자료는 어떻게 처리하나요?", a: DATA_POLICY }];
   return (
     <div className="min-h-screen w-full bg-white">
       <Header />
@@ -132,15 +215,13 @@ export default function ServiceDetail() {
             <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-8 items-center">
               <FadeUp className="flex flex-col gap-4">
                 <span className="text-[12px] font-bold tracking-[1.2px] text-brand-blue">
-                  개인 조사 서비스
+                  {service.label}
                 </span>
                 <h1 className="text-[36px] md:text-[48px] font-bold leading-[1.2] tracking-[-0.96px] text-navy">
-                  개인 및 가정 민간조사
+                  {service.title}
                 </h1>
                 <p className="max-w-[576px] text-[17px] md:text-[18px] leading-relaxed text-[#44474d]">
-                  불확실성으로 인해 일상이 흔들릴 때, 당신에게는 구체적인 증거에 기반한 명확한
-                  해답이 필요합니다. 현무는 철저히 법을 준수하며, 보안이 유지되는 전문적인 조사를
-                  통해 가문의 고민을 투명하게 해결해 드립니다.
+                  {service.description}
                 </p>
               </FadeUp>
               <FadeUp
@@ -149,7 +230,7 @@ export default function ServiceDetail() {
               >
                 <img
                   src={servicesBentoImage}
-                  alt="전문 조사관의 정돈된 업무 데스크"
+                  alt="노트북으로 조사 자료를 검토하는 모습"
                   className="h-full w-full object-cover"
                 />
               </FadeUp>
@@ -165,7 +246,7 @@ export default function ServiceDetail() {
             </FadeUp>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {CORE_COMPETENCIES.map((item, i) => (
+              {service.competencies.map((item, i) => (
                 <FadeUp
                   key={item.title}
                   delay={i * 100}
@@ -183,40 +264,32 @@ export default function ServiceDetail() {
                 delay={120}
                 className="md:col-span-2 flex flex-col gap-6 rounded-[10px] border border-[#d9d9d9] bg-white p-8 sm:flex-row"
               >
-                <div className="flex flex-1 flex-col gap-3">
-                  <Icon name="scale" className="h-6 w-6" />
-                  <h3 className="text-[22px] font-semibold text-slate">소송 증거 수집 지원</h3>
-                  <p className="text-[15px] leading-relaxed text-[#44474d]">
-                    가사 소송, 양육권 분쟁, 재산 분할 등 법정에서 활용 가능한 객관적 증거 자료
-                    수집을 지원합니다.
-                  </p>
-                </div>
-                <div className="hidden w-px self-stretch bg-border-gray/40 sm:block" />
-                <div className="flex flex-1 flex-col gap-3">
-                  <Icon name="eye-off" className="h-6 w-6" />
-                  <h3 className="text-[22px] font-semibold text-slate">스토킹 및 피해 방지</h3>
-                  <p className="text-[15px] leading-relaxed text-[#44474d]">
-                    가해자 식별 및 증거 채집을 통해 접근 금지 명령 신청 및 수사 기관 공조를
-                    돕습니다.
-                  </p>
-                </div>
+                {service.support.map((item, i) => (
+                  <div
+                    key={item.title}
+                    className={`flex flex-1 flex-col gap-3 ${i === 1 ? "border-t border-border-gray/40 pt-6 sm:border-l sm:border-t-0 sm:pl-6 sm:pt-0" : ""}`}
+                  >
+                    <Icon name={item.icon} className="h-6 w-6" />
+                    <h3 className="text-[22px] font-semibold text-slate">{item.title}</h3>
+                    <p className="text-[15px] leading-relaxed text-[#44474d]">{item.desc}</p>
+                  </div>
+                ))}
               </FadeUp>
 
               <FadeUp
                 delay={240}
                 className="flex flex-col justify-center gap-4 rounded-[10px] border border-navy bg-navy p-8"
               >
-                <h3 className="text-[22px] font-semibold text-white">특수 의뢰 상담</h3>
-                <p className="text-[15px] leading-relaxed text-[#76849f]">
-                  극도의 보안이 요구되는 복잡하고 비표준적인 가정 내 사안에 대해서도 전문 상담을
-                  제공합니다.
+                <h3 className="text-[22px] font-semibold text-white">{service.consultation}</h3>
+                <p className="text-[15px] leading-relaxed text-white/75">
+                  확인하고 싶은 내용과 보유한 자료를 알려주세요. 진행 가능 여부부터 함께 살핍니다.
                 </p>
                 <button
                   type="button"
-                  onClick={() => goTo("contact")}
+                  onClick={contactRoute}
                   className="group flex items-center gap-2 text-[15px] font-bold text-brand-blue-light"
                 >
-                  상담 예약하기
+                  {service.consultation} 문의
                   <span className="transition-transform duration-200 group-hover:translate-x-1">
                     →
                   </span>
@@ -231,13 +304,13 @@ export default function ServiceDetail() {
           <div className="mx-auto grid max-w-[1200px] grid-cols-1 gap-12 px-0 md:px-6 lg:grid-cols-2">
             <FadeUp className="flex flex-col gap-8">
               <h2 className="text-[28px] md:text-[32px] font-semibold text-navy">
-                전문적인 조사가 필요한 경우
+                이런 상황에서 상담할 수 있습니다
               </h2>
               <div className="flex flex-col gap-6">
-                {NEED_INVESTIGATION.map((item) => (
-                  <div key={item.no} className="flex gap-4">
+                {service.situations.map((item, i) => (
+                  <div key={item.title} className="flex gap-4">
                     <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-blue text-[10px] text-white">
-                      {item.no}
+                      {String(i + 1).padStart(2, "0")}
                     </span>
                     <div className="flex flex-col gap-1">
                       <span className="text-[16px] font-bold text-navy">{item.title}</span>
@@ -258,9 +331,8 @@ export default function ServiceDetail() {
                 현무의 조사 원칙
               </h2>
               <p className="text-[15px] leading-relaxed text-slate">
-                우리는 <span className="font-bold">'증거 중립성'</span> 원칙에 따라 행동합니다.
-                결과를 조작하지 않으며, 오직 존재하는 진실만을 규명합니다. 모든 조사는 다음의 세
-                가지 기준을 엄격히 준수합니다.
+                추측과 확인된 사실을 구분합니다. 의뢰 목적에 필요한 범위를 정하고,
+                진행 중 확인한 내용을 근거와 함께 전달합니다.
               </p>
               <div className="flex flex-col gap-4">
                 {INVESTIGATION_PRINCIPLES.map((p) => (
@@ -283,8 +355,8 @@ export default function ServiceDetail() {
               <h2 className="text-[28px] md:text-[32px] font-semibold text-white">
                 업무 범위 및 법적 한계
               </h2>
-              <p className="text-[15px] text-[#76849f]">
-                정직함은 현무가 가진 전문적 정통성의 토대입니다.
+              <p className="text-[15px] text-white/75">
+                의뢰 목적과 권한을 확인한 뒤 진행 가능한 범위를 안내합니다.
               </p>
             </FadeUp>
 
@@ -296,7 +368,7 @@ export default function ServiceDetail() {
                 </div>
                 <ul className="flex flex-col gap-3">
                   {LEGAL_ALLOWED.map((item) => (
-                    <li key={item} className="text-[14px] leading-relaxed text-[#76849f]">
+                    <li key={item} className="text-[14px] leading-relaxed text-white/75">
                       • {item}
                     </li>
                   ))}
@@ -309,7 +381,7 @@ export default function ServiceDetail() {
                 </div>
                 <ul className="flex flex-col gap-3">
                   {LEGAL_FORBIDDEN.map((item) => (
-                    <li key={item} className="text-[14px] leading-relaxed text-[#76849f]">
+                    <li key={item} className="text-[14px] leading-relaxed text-white/75">
                       • {item}
                     </li>
                   ))}
@@ -346,14 +418,15 @@ export default function ServiceDetail() {
 
             <FadeUp className="flex flex-col gap-8 rounded-[10px] bg-bg-gray p-8 md:flex-row md:p-12">
               <div className="flex w-full flex-col gap-4 md:w-[300px]">
-                <h3 className="text-[22px] font-semibold text-navy">준비 서류 안내</h3>
+                <h3 className="text-[22px] font-semibold text-navy">상담 전 준비사항</h3>
                 <p className="text-[14px] leading-relaxed text-[#44474d]">
-                  정확하고 신속한 조사를 위해 가능한 경우 다음 자료를 준비해 주시기 바랍니다.
+                  알고 있는 내용과 정당하게 보유한 자료만 준비해 주세요.
+                  추가 자료가 필요한 경우 상담에서 안내합니다.
                 </p>
                 <div className="h-1 w-12 bg-brand-blue" />
               </div>
               <div className="grid flex-1 grid-cols-1 sm:grid-cols-2 gap-4">
-                {PREP_DOCS.map((doc) => (
+                {service.preparation.map((doc) => (
                   <div key={doc.label} className="flex items-center gap-3">
                     <Icon name={doc.icon} className="h-[18px] w-[18px] shrink-0" />
                     <span className="text-[14px] font-semibold text-slate">{doc.label}</span>
@@ -372,7 +445,7 @@ export default function ServiceDetail() {
                 서비스 관련 자주 묻는 질문
               </h2>
               <div className="flex flex-col gap-6">
-                {SERVICE_FAQS.map((f) => (
+                {faqs.map((f) => (
                   <div key={f.q} className="flex flex-col gap-2">
                     <span className="text-[16px] font-bold text-navy">{f.q}</span>
                     <span className="text-[14px] leading-relaxed text-[#44474d]">{f.a}</span>
@@ -389,19 +462,19 @@ export default function ServiceDetail() {
                 비용 산정 안내
               </h2>
               <p className="text-[14px] leading-relaxed text-[#44474d]">
-                조사 비용은 투입 인력과 장비, 난이도에 따라 개별적으로 산정됩니다. 상담 후
-                투명한 정찰제 견적을 제공해 드립니다.
+                비용은 확인할 내용과 진행 범위에 따라 달라집니다.
+                상담 후 필요한 작업과 조건을 정리해 견적을 안내합니다.
               </p>
               <div className="flex flex-col gap-3">
                 {[
-                  ["투입 인력", "현장 요원 1인 / 일일 기준"],
-                  ["기본 기간", "최소 3일 기본 계약"],
-                  ["특수 장비", "정밀 관찰 장비 포함"],
-                  ["보고서 작성", "기본 비용 내 포함"],
+                  ["진행 범위", "확인할 내용과 대상에 따라 협의"],
+                  ["예상 일정", "자료와 현장 조건 확인 후 안내"],
+                  ["인력·장비", "필요한 작업에 따라 안내"],
+                  ["결과 전달", "보고 형식과 전달 방법 협의"],
                 ].map(([label, value]) => (
                   <div
                     key={label}
-                    className="flex items-center justify-between border-b border-[#d9d9d9] pb-2"
+                    className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 border-b border-[#d9d9d9] pb-2"
                   >
                     <span className="text-[14px] font-bold text-slate">{label}</span>
                     <span className="text-[14px] text-[#44474d]">{value}</span>
@@ -410,10 +483,10 @@ export default function ServiceDetail() {
               </div>
               <button
                 type="button"
-                onClick={() => goTo("contact")}
+                onClick={contactRoute}
                 className="mt-2 rounded-[10px] bg-navy py-4 text-[16px] font-bold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-navy/90 hover:shadow-lg"
               >
-                상세 견적 요청하기
+                {service.consultation} 및 견적 문의
               </button>
             </FadeUp>
           </div>
@@ -423,15 +496,14 @@ export default function ServiceDetail() {
         <section className="bg-navy px-6 md:px-10 py-20">
           <div className="mx-auto flex max-w-[768px] flex-col items-center gap-6 text-center">
             <FadeUp as="h2" className="text-[32px] md:text-[48px] font-bold tracking-[-0.96px] text-white">
-              문제 해결을 위한 첫 걸음
+              {service.ctaTitle}
             </FadeUp>
             <FadeUp delay={80} as="p" className="text-[16px] md:text-[18px] text-white/90">
-              민감한 가정 문제는 시간이 지날수록 해결이 어려워질 수 있습니다.
-              지금 바로 수석 조사관에게 1:1 비밀 상담을 요청하십시오.
+              {service.ctaDescription}
             </FadeUp>
             <FadeUp delay={160} className="flex flex-wrap justify-center gap-4 pt-2">
               <a
-                href="tel:010-3583-3542"
+                href={PHONE_LINK}
                 className="flex items-center gap-2 rounded-[12px] bg-white px-10 py-4 text-[16px] font-bold text-navy transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
               >
                 <Icon name="phone" className="h-[18px] w-[18px]" />
@@ -439,11 +511,11 @@ export default function ServiceDetail() {
               </a>
               <button
                 type="button"
-                onClick={() => goTo("contact")}
+                onClick={contactRoute}
                 className="flex items-center gap-2 rounded-[12px] border border-white/20 bg-navy px-10 py-4 text-[16px] font-bold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-white/5"
               >
                 <Icon name="chat" className="h-[18px] w-[18px]" />
-                온라인 문의
+                {service.consultation} 문의
               </button>
             </FadeUp>
           </div>

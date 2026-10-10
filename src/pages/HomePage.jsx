@@ -23,9 +23,9 @@ export default function HomePage() {
       <Header />
       <main>
         <Hero />
-        <TrustBar />
         <ProblemSelector />
         <KeyServices />
+        <TrustBar />
         <DirectorMessage />
         <Qualifications />
         <OperatingPrinciples />

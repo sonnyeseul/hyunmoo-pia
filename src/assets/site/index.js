@@ -1,7 +1,11 @@
 // Site imagery, bundled locally (no external hosting, nothing that expires).
-import hero from "./hero.jpg";
-import servicesBento from "./services-bento.jpg";
-import officeMap from "./map.jpg";
+import hero from "./hero-document-review.jpg";
+import servicesBento from "./services-desk-review.webp";
+import officeMap from "./map-1200.webp";
+import statisticsCity768 from "./statistics-city-768.webp";
+import statisticsCity1280 from "./statistics-city-1280.webp";
+import statisticsCity1920 from "./statistics-city-1920.webp";
+import promotion from "./promotion-30-percent.webp";
 
 import caseFamily from "./cases/family.jpg";
 import caseCorporate from "./cases/corporate.jpg";
@@ -20,6 +24,9 @@ import iconSafety from "./icons/safety.png";
 export const heroImage = hero;
 export const servicesBentoImage = servicesBento;
 export const mapImage = officeMap;
+export const statisticsCityImage = statisticsCity1280;
+export const statisticsCitySrcSet = `${statisticsCity768} 768w, ${statisticsCity1280} 1280w, ${statisticsCity1920} 1920w`;
+export const promotionImage = promotion;
 
 export const caseImages = {
   family: caseFamily,

@@ -20,7 +20,7 @@ export default function Location() {
                   대중교통 안내
                 </div>
                 <div className="text-[13px] text-[#44474d]">
-                  3호선 사직역 3번 출구 도보 12분. 부산지방법원 인근 위치.
+                  지도 앱에서 ‘부산광역시 동래구 여고북로 102’를 검색해 출발지별 경로를 확인해 주세요.
                 </div>
               </div>
             </FadeUp>
@@ -31,7 +31,7 @@ export default function Location() {
                   주차 안내
                 </div>
                 <div className="text-[13px] text-[#44474d]">
-                  건물 지하 층에 방문객을 위한 전용 주차 공간이 마련되어 있습니다.
+                  방문 전에 주차 가능 여부와 안내 사항을 전화로 확인해 주세요.
                 </div>
               </div>
             </FadeUp>
@@ -42,17 +42,13 @@ export default function Location() {
           </FadeUp>
         </div>
 
-        <FadeUp delay={150} className="group relative aspect-video overflow-hidden rounded-[10px] border border-white/10 bg-navy shadow-lg shadow-navy/10 transition-shadow duration-300 hover:shadow-2xl hover:shadow-navy/20">
+        <FadeUp delay={150} className="relative aspect-video overflow-hidden rounded-[10px] border border-border-gray bg-white shadow-lg shadow-navy/10">
           <img
             src={mapImage}
             alt="현무 PIA 사무실 위치 지도"
-            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-          />
-          {/* The map artwork already carries the HYUNMOO PIA탐정 label, so no
-              overlay pin here — just a light vignette to seat it in the page. */}
-          <div
-            className="pointer-events-none absolute inset-0 bg-gradient-to-b from-navy/20 via-transparent to-navy/25"
-            aria-hidden
+            className="h-full w-full object-cover"
+            loading="lazy"
+            decoding="async"
           />
         </FadeUp>
       </div>

@@ -1,53 +1,87 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
-/**
- * Lightbox for viewing a certificate/license image at full size.
- * Opened by clicking the "정식 사업자 등록 업체" / "PIA 공인 탐정사 인증" badges in the footer.
- */
+const MAX_HEIGHT =
+  "calc(100dvh - 2rem - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px))";
+
 export default function CertificateModal({ image, alt, title, onClose }) {
+  const dialogRef = useRef(null);
+
   useEffect(() => {
-    if (!image) return;
-    function handleKey(e) {
-      if (e.key === "Escape") onClose();
-    }
-    document.addEventListener("keydown", handleKey);
-    const prevOverflow = document.body.style.overflow;
+    const dialog = dialogRef.current;
+    if (!image || !dialog) return;
+
+    const previousFocus = document.activeElement;
+    const previousBodyOverflow = document.body.style.overflow;
+    const previousRootOverflow = document.documentElement.style.overflow;
+
+    dialog.showModal();
     document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+
     return () => {
-      document.removeEventListener("keydown", handleKey);
-      document.body.style.overflow = prevOverflow;
+      document.body.style.overflow = previousBodyOverflow;
+      document.documentElement.style.overflow = previousRootOverflow;
+      if (dialog.open) dialog.close();
+      if (previousFocus instanceof HTMLElement && previousFocus.isConnected) {
+        previousFocus.focus({ preventScroll: true });
+      }
     };
-  }, [image, onClose]);
+  }, [image]);
+
+  function dismiss() {
+    if (dialogRef.current?.open) dialogRef.current.close();
+    onClose();
+  }
 
   if (!image) return null;
 
   return (
-    <div
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-navy/80 p-6 backdrop-blur-sm"
-      onClick={onClose}
-      role="dialog"
-      aria-modal="true"
+    <dialog
+      ref={dialogRef}
       aria-label={title}
+      onCancel={(event) => {
+        event.preventDefault();
+        dismiss();
+      }}
+      onClick={(event) => {
+        if (event.target === event.currentTarget) dismiss();
+      }}
+      className="fixed inset-0 m-auto h-fit max-h-[var(--certificate-max-height)] max-w-[560px] overflow-hidden rounded-[10px] border-0 bg-white p-0 text-navy shadow-2xl backdrop:bg-navy/80"
+      style={{
+        width:
+          "calc(100vw - 2rem - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px))",
+        "--certificate-max-height": MAX_HEIGHT,
+      }}
     >
-      <div
-        className="relative flex max-h-[90vh] w-full max-w-[560px] flex-col items-center gap-4 rounded-[10px] bg-white p-4 shadow-2xl md:p-6"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <button
-          type="button"
-          onClick={onClose}
-          aria-label="닫기"
-          className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full bg-bg-gray text-slate transition-colors duration-200 hover:bg-navy hover:text-white"
-        >
-          ✕
-        </button>
-        <span className="mt-2 text-[14px] font-bold tracking-[1.2px] text-navy">{title}</span>
-        <img
-          src={image}
-          alt={alt}
-          className="max-h-[75vh] w-auto rounded-[6px] object-contain shadow-[0_1px_1px_rgba(0,0,0,0.1)]"
-        />
+      <div className="flex max-h-[var(--certificate-max-height)] flex-col">
+        <div className="flex shrink-0 items-center justify-between gap-4 border-b border-border-gray px-4 py-3 md:px-6">
+          <h2 className="text-sm font-bold text-navy">{title}</h2>
+          <button
+            type="button"
+            onClick={dismiss}
+            aria-label="자격증 이미지 닫기"
+            className="flex size-11 shrink-0 items-center justify-center rounded-full bg-bg-gray text-slate transition-colors duration-200 hover:bg-navy hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              aria-hidden="true"
+              className="size-5"
+            >
+              <path d="m6 6 12 12M18 6 6 18" strokeLinecap="round" />
+            </svg>
+          </button>
+        </div>
+        <div className="min-h-0 overflow-y-auto overscroll-contain p-4 md:p-6">
+          <img
+            src={image}
+            alt={alt}
+            className="mx-auto block h-auto w-auto max-w-full rounded-[6px] object-contain"
+          />
+        </div>
       </div>
-    </div>
+    </dialog>
   );
 }

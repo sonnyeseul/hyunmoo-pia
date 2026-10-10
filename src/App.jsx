@@ -2,42 +2,59 @@ import { useEffect, useState } from "react";
 import HomePage from "./pages/HomePage";
 import ServiceDetail from "./pages/ServiceDetail";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
+import ConsultationActions from "./components/ConsultationActions";
+import PromotionPopup from "./components/PromotionPopup";
+import { readHashRoute } from "./utils/navigation";
 
-// Tiny hash-based "router" — no external routing library needed.
-// Section anchors on the home page (e.g. "#services") are left completely
-// alone; only these two reserved hash values switch to a full detail page.
-const DETAIL_PAGES = {
-  "service-detail": ServiceDetail,
-  "privacy-policy": PrivacyPolicy,
+const POLICY_SECTIONS = {
+  privacy: "privacy-section-1",
+  scope: "privacy-section-2",
+  storage: "privacy-section-3",
 };
 
-function readHash() {
-  return window.location.hash.replace(/^#/, "");
-}
-
 export default function App() {
-  const [hash, setHash] = useState(readHash);
+  const [route, setRoute] = useState(() => readHashRoute());
 
   useEffect(() => {
     function handleHashChange() {
-      const next = readHash();
-      setHash(next);
-      if (DETAIL_PAGES[next]) {
-        window.scrollTo({ top: 0, behavior: "auto" });
-      } else if (next) {
-        // Not a detail page — it's a home-page section anchor. The target
-        // element may not exist yet (e.g. we were just on a detail page),
-        // so wait a tick for HomePage to mount, then scroll to it.
-        requestAnimationFrame(() => {
-          document.getElementById(next)?.scrollIntoView();
-        });
-      }
+      setRoute(readHashRoute());
     }
     window.addEventListener("hashchange", handleHashChange);
     return () => window.removeEventListener("hashchange", handleHashChange);
   }, []);
 
-  const DetailPage = DETAIL_PAGES[hash];
-  if (DetailPage) return <DetailPage />;
-  return <HomePage />;
+  useEffect(() => {
+    // Wait for the destination page to mount, including direct bookmarked URLs.
+    const frame = requestAnimationFrame(() => {
+      if (route.path === "privacy-policy") {
+        const sectionId = POLICY_SECTIONS[route.params.get("section")];
+        if (sectionId) {
+          document.getElementById(sectionId)?.scrollIntoView({ behavior: "auto" });
+          return;
+        }
+      } else if (route.path && route.path !== "service-detail") {
+        document.getElementById(route.path)?.scrollIntoView({ behavior: "auto" });
+        return;
+      }
+      window.scrollTo({ top: 0, behavior: "auto" });
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [route]);
+
+  const isServiceDetail = route.path === "service-detail";
+  const isPrivacyPolicy = route.path === "privacy-policy";
+  const category = route.params.get("category") ?? "family";
+  return (
+    <>
+      {isServiceDetail ? (
+        <ServiceDetail key={category} category={category} />
+      ) : isPrivacyPolicy ? (
+        <PrivacyPolicy section={route.params.get("section")} />
+      ) : (
+        <HomePage />
+      )}
+      <ConsultationActions />
+      {!isServiceDetail && !isPrivacyPolicy && <PromotionPopup />}
+    </>
+  );
 }

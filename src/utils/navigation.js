@@ -1,18 +1,21 @@
-/**
- * Tiny hash-based "router" — no external routing library.
- *
- * Section anchors on the home page (e.g. "#services", "#contact") keep
- * working exactly as before. A small set of reserved hash values (see
- * DETAIL_PAGE_HASHES in App.jsx) instead render a full detail page
- * ("service-detail", "privacy-policy"). goTo() below is how any component
- * — a service card, a footer link — triggers that navigation.
- */
-export function goTo(hash) {
-  if (window.location.hash === `#${hash}`) {
-    // Same target already in the URL (e.g. clicking the card twice) —
-    // hashchange won't fire on its own, so nudge it manually.
+// Queries select a service or policy section; the path remains the page/anchor.
+export function readHashRoute(hash = window.location.hash) {
+  const value = hash.replace(/^#/, "");
+  const queryStart = value.indexOf("?");
+  return {
+    path: queryStart < 0 ? value : value.slice(0, queryStart),
+    params: new URLSearchParams(queryStart < 0 ? "" : value.slice(queryStart + 1)),
+  };
+}
+
+export function goTo(hash, query) {
+  const path = hash.replace(/^#/, "");
+  const search = query ? new URLSearchParams(query).toString() : "";
+  const target = search ? `${path}?${search}` : path;
+  if (window.location.hash.replace(/^#/, "") === target) {
+    // Revisit the same target even when the browser does not emit hashchange.
     window.dispatchEvent(new HashChangeEvent("hashchange"));
   } else {
-    window.location.hash = hash;
+    window.location.hash = target;
   }
 }

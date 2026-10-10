@@ -4,17 +4,18 @@ import FadeUp from "../components/FadeUp";
 import { goTo } from "../utils/navigation";
 import Icon from "../components/Icon";
 import { servicesBentoImage } from "../assets/site";
+import { PHONE_LINK, PHONE_NUMBER } from "../config/contact";
 
 const SIDE_NAV = [
-  { id: "privacy-section-1", label: "개인정보 처리방침" },
-  { id: "privacy-section-2", label: "업무 수행 범위" },
-  { id: "privacy-section-3", label: "데이터 보관 및 파기" },
+  { id: "privacy-section-1", section: "privacy", label: "개인정보 처리방침" },
+  { id: "privacy-section-2", section: "scope", label: "업무 수행 범위" },
+  { id: "privacy-section-3", section: "storage", label: "자료 보관 및 폐기" },
 ];
 
 const COLLECTED_ITEMS = [
-  "의뢰인 식별 정보 (성명, 연락처 등)",
-  "의뢰인이 제공한 사건 관련 증거 자료 및 요구사항",
-  "상담 플랫폼 내 보안 검증을 위한 기술 로그",
+  "이용자가 상담 채널에서 직접 전달한 문의 내용과 회신용 연락처",
+  "상담 과정에서 제공한 이름 또는 별칭, 관심 분야, 지역",
+  "계약 후 조사에 필요한 자료 (항목과 취급 범위는 별도 안내)",
 ];
 
 const ALLOWED_SERVICES = [
@@ -33,16 +34,16 @@ const FORBIDDEN_SERVICES = [
 
 const STORAGE_STEPS = [
   {
-    title: "1단계: 사건 진행 중",
-    desc: "암호화된 저장소에 보관되며, 지정된 조사관만이 다중 요소 인증을 통해 접근할 수 있습니다.",
+    title: "상담과 계약",
+    desc: "상담과 조사에 필요한 정보만 확인합니다. 필요한 보관 항목과 기간은 계약 시 안내합니다.",
   },
   {
-    title: "2단계: 사건 완료",
-    desc: "결과물은 보안 채널을 통해 의뢰인에게 전달됩니다. 데이터는 예비용으로 30일간 보관됩니다.",
+    title: "진행과 결과 전달",
+    desc: "담당 업무에 필요한 범위에서 자료를 취급하고, 의뢰인과 협의한 방식으로 결과를 전달합니다.",
   },
   {
-    title: "3단계: 완전 파기",
-    desc: "모든 관련 자료에 대해 영구적인 디지털 파쇄 및 물리적 파기를 실시합니다.",
+    title: "반환과 폐기",
+    desc: "자료는 목적 달성 후 고객과 협의한 방식으로 반환하거나 폐기합니다. 법령에 따라 보관이 필요한 자료는 별도로 관리합니다.",
   },
 ];
 
@@ -66,22 +67,22 @@ export default function PrivacyPolicy() {
                 개인정보 처리방침 및 서비스 운영 정책
               </h1>
               <p className="max-w-[672px] text-[16px] md:text-[18px] leading-relaxed text-[#44474d]">
-                투명성과 법적 준수는 HYUNMOO PIA탐정의 근간입니다. 당사는 고객의 민감한 데이터를
-                정밀하고 철저한 보안 원칙에 따라 관리합니다.
+                상담 정보를 어떻게 전달하고 관리하는지, 어떤 조사를 진행할 수 있는지 안내합니다.
+                자세한 사항은 상담과 계약 과정에서 확인하실 수 있습니다.
               </p>
             </FadeUp>
 
             <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
               {/* Side nav */}
-              <nav className="hidden lg:col-span-3 lg:block">
+              <nav aria-label="개인정보 및 운영 정책 목차" className="lg:col-span-3">
                 <ul className="flex flex-col gap-4 border-l border-[#d9d9d9] pl-px">
                   {SIDE_NAV.map((item) => (
                     <li key={item.id}>
                       <a
-                        href={`#${item.id}`}
+                        href={`#privacy-policy?section=${item.section}`}
                         onClick={(e) => {
                           e.preventDefault();
-                          document.getElementById(item.id)?.scrollIntoView({ behavior: "smooth" });
+                          goTo(`privacy-policy?section=${item.section}`);
                         }}
                         className="block rounded-r-[4px] border-l-2 border-brand-blue/50 bg-brand-blue/5 py-1.5 pl-[18px] text-[12px] font-bold tracking-[1.2px] text-brand-blue transition-colors duration-200 hover:bg-brand-blue/10"
                       >
@@ -107,12 +108,13 @@ export default function PrivacyPolicy() {
                       개인정보 처리방침 (Privacy Policy)
                     </h2>
                     <p className="text-[15px] md:text-[16px] leading-relaxed text-[#44474d]">
-                      HYUNMOO PIA탐정는 전문적인 조사 서비스를 제공하기 위해 필요한 최소한의
-                      개인정보만을 수집합니다. 당사는 개인정보 보호법을 엄격히 준수합니다.
+                      현무 민간조사 탐정사무소는 상담 회신과 의뢰 검토를 위해 필요한 정보를 확인합니다.
+                      홈페이지의 상담 버튼은 카카오톡 상담창으로 연결하며,
+                      문의 내용은 이용자가 해당 상담창에서 직접 전달합니다.
                     </p>
                     <div className="flex flex-col gap-2 rounded-r-[4px] border-l-4 border-brand-blue bg-bg-gray px-9 py-8">
                       <span className="text-[12px] font-bold tracking-[1.2px] text-navy">
-                        수집하는 정보 항목:
+                        상담과 의뢰 과정에서 확인하는 정보:
                       </span>
                       <ul className="flex flex-col gap-2 pl-5">
                         {COLLECTED_ITEMS.map((item) => (
@@ -123,9 +125,29 @@ export default function PrivacyPolicy() {
                       </ul>
                     </div>
                     <p className="text-[15px] leading-relaxed text-[#44474d]">
-                      당사는 귀하의 개인정보를 판매, 임대 또는 거래하지 않습니다. 정보 공유는
-                      유효한 법원의 명령이 있거나 의뢰인의 명시적인 서면 동의가 있는 경우에만
-                      이루어집니다.
+                      이 홈페이지는 상담 입력 폼으로 이름·연락처·상담 내용을 수집하지 않으며,
+                      문의 내용을 자동으로 이메일 발송하지 않습니다.
+                      상담 내용은 카카오톡에서 직접 작성해 전송해 주세요.
+                      공개된 전화나 이메일로도 직접 문의하실 수 있습니다.
+                    </p>
+                    <p className="text-[15px] leading-relaxed text-[#44474d]">
+                      카카오톡의 대화 내용 전달과 보관에는 카카오의 개인정보 처리 기준도 적용됩니다.
+                      <a href="https://www.kakao.com/policy/privacy" target="_blank" rel="noopener noreferrer" className="ml-1 text-brand-blue underline underline-offset-4">카카오 개인정보처리방침 (새 창)</a>
+                      텔레그램이나 이메일로 직접 문의하실 때에도 해당 서비스의 처리 기준을 확인해 주세요.
+                      사무소가 상담 과정에서 확인한 정보는 회신과 의뢰 검토를 위해 관리하며,
+                      목적 달성 후 사무소의 자료 관리 기준에 따라 삭제합니다.
+                    </p>
+                    <p className="text-[15px] leading-relaxed text-[#44474d]">
+                      정보는 상담과 조사 목적에 필요한 범위에서 취급하며, 의뢰인의 동의나 법령에 따른 근거 없이
+                      제3자에게 제공하지 않습니다. 상담에 필요한 정보의 제공을 원하지 않으시면
+                      그 뜻을 알려 주세요. 제공 범위에 따라 회신이나 의뢰 검토가 제한될 수 있습니다.
+                    </p>
+                    <p className="text-[15px] leading-relaxed text-[#44474d]">
+                      개인정보의 열람·정정·삭제, 동의 철회 또는 자료 반환·폐기를 원하시면
+                      현무 민간조사 탐정사무소에 문의해 주세요.
+                      문의 전화: <a href={PHONE_LINK} className="font-semibold text-brand-blue underline underline-offset-4">{PHONE_NUMBER}</a>
+                      <span className="mt-2 block">문의 이메일: <a href="mailto:actoz2001@gmail.com" className="font-semibold text-brand-blue underline underline-offset-4">actoz2001@gmail.com</a></span>
+                      <span className="mt-2 block text-sm text-slate">안내 수정일: 2026년 10월 10일</span>
                     </p>
                   </FadeUp>
                 </section>
@@ -143,8 +165,8 @@ export default function PrivacyPolicy() {
                       업무 수행 범위 (Scope of Work)
                     </h2>
                     <p className="text-[15px] md:text-[16px] leading-relaxed text-slate">
-                      HYUNMOO PIA탐정는 철저히 법적 테두리 안에서 운영됩니다. 당사가 수행 가능한
-                      업무와 거부해야 하는 요청에 대해 명확히 안내해 드립니다.
+                      현무 민간조사 탐정사무소는 법령이 허용하는 방법과 범위에서 조사를 진행합니다.
+                      의뢰 목적과 대상, 자료 수집 방법을 확인한 뒤 진행 가능 여부를 안내합니다.
                     </p>
 
                     <div className="grid grid-cols-1 gap-6 pt-2 sm:grid-cols-2">
@@ -188,7 +210,7 @@ export default function PrivacyPolicy() {
                       </span>
                     </div>
                     <h2 className="text-[26px] md:text-[32px] font-semibold text-navy">
-                      데이터 보관 및 파기 정책 (Data Storage Policy)
+                      자료 보관 및 폐기 안내
                     </h2>
 
                     <div className="grid grid-cols-1 gap-6 pt-2 sm:grid-cols-3">
@@ -203,9 +225,13 @@ export default function PrivacyPolicy() {
                     </div>
 
                     <p className="pt-2 text-[15px] leading-relaxed text-[#44474d]">
-                      사건이 종결되고 유예 기간이 만료되면, HYUNMOO PIA탐정는 서버에서 해당
-                      조사의 모든 흔적을 삭제합니다. 이는 완벽한 의뢰인 보호를 위한 당사의
-                      약속입니다.
+                      자료는 목적 달성 후 고객과 협의한 방식으로 반환하거나 폐기하며,
+                      필요한 보관 항목과 기간은 계약 시 안내합니다.
+                      상담 채널에서 직접 전달받은 문의 내용과 자료는 사무소에서 관리하고,
+                      상담과 의뢰 검토 목적을 달성한 뒤 사무소의 자료 관리 기준에 따라 삭제합니다.
+                      법령에 따라 보관이 필요한 자료는 해당 목적에 필요한 범위에서 별도로 관리합니다.
+                      홈페이지의 이벤트 팝업을 닫거나 ‘오늘은 그만 보기’를 선택하면,
+                      팝업 표시 여부를 브라우저에 저장합니다. 여기에 상담 내용이나 연락처는 저장하지 않습니다.
                     </p>
                   </FadeUp>
                 </section>
@@ -214,6 +240,8 @@ export default function PrivacyPolicy() {
                   <img
                     src={servicesBentoImage}
                     alt=""
+                    loading="lazy"
+                    decoding="async"
                     className="absolute inset-0 h-full w-full object-cover opacity-40 grayscale"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-bg-gray to-transparent" />

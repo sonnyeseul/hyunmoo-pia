@@ -1,5 +1,6 @@
 import { heroImage } from "../assets/site";
 import FadeUp from "./FadeUp";
+import { PHONE_LINK } from "../config/contact";
 
 export default function Hero() {
   return (
@@ -11,7 +12,9 @@ export default function Hero() {
         <img
           src={heroImage}
           alt=""
-          className="absolute inset-0 h-full w-full object-cover"
+          width="1024"
+          height="1024"
+          className="absolute inset-0 h-full w-full object-cover object-[47%_50%]"
         />
       </div>
 
@@ -31,7 +34,7 @@ export default function Hero() {
             강력한 설득력을 갖는다
           </FadeUp>
 
-          <FadeUp delay={200} as="p" className="max-w-[576px] text-[16px] md:text-[18px] leading-[1.6] text-slate">
+          <FadeUp delay={200} as="p" className="max-w-xl md:max-w-sm lg:max-w-xl text-[16px] md:text-[18px] leading-[1.6] text-slate">
             현무 PIA 민간조사 탐정사무소는 개인과 기업의 민감한 문제를 검토하고, 합법적으로
             가능한 조사 범위와 현실적인 진행 방향을 안내합니다.
           </FadeUp>
@@ -44,7 +47,7 @@ export default function Hero() {
               비공개 무료상담
             </a>
             <a
-              href="tel:010-3583-3542"
+              href={PHONE_LINK}
               className="flex items-center justify-center rounded-md border border-navy px-10 py-4 text-[18px] font-bold text-navy transition-all duration-200 hover:-translate-y-0.5 hover:bg-navy/5 hover:shadow-md active:translate-y-0"
             >
               전화 상담

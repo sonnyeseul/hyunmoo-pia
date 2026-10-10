@@ -1,68 +1,72 @@
-# 현무 PIA 랜딩페이지
+# 현무 민간조사 탐정사무소
 
-Figma 디자인(`현무 피아이에이` 파일, node `1:3` — "메인 랜딩페이지 (데스크톱)")을 기반으로 구현한 React + Tailwind CSS 랜딩페이지입니다.
+React 19, Vite 8, Tailwind CSS 4로 구성한 홈페이지입니다. 사진과 자격증은 로컬 자산을 사용합니다. 온라인 상담은 카카오톡 상담창으로 연결합니다.
 
-## 실행 방법
+## 실행과 검증
+
+Node.js 24와 npm 11에서 검증했습니다.
 
 ```bash
-npm install
-npm run dev       # 개발 서버 (http://localhost:5173)
-npm run build     # 프로덕션 빌드 (dist/ 폴더 생성)
-npm run preview   # 빌드 결과 미리보기
+npm ci
+npm run dev
+npm run lint
+npm run build
+npm run preview
 ```
 
-## 기술 스택
+개발 서버는 기본 5173, 빌드 미리보기는 4173입니다. 배포 정적 파일은 dist/에 생성됩니다.
 
-- React 19 + Vite 8
-- Tailwind CSS v4 (`@tailwindcss/vite` 플러그인, `src/index.css`에서 `@theme`으로 색상/폰트 토큰 정의)
-- Pretendard 폰트 (CDN 링크, `index.html`)
+## 카카오톡 상담 연결
 
-## 폴더 구조
+홈페이지의 상담 영역에서 **카카오톡 상담하기**를 누르면 기존 카카오톡 상담 링크가 새 창으로 열립니다. 이용자가 카카오톡에서 문의 내용을 직접 작성하고 전송합니다.
 
-```
-src/
-  assets/figmaAssets.js   # 모든 이미지/아이콘 URL을 한 곳에 모아둠
-  components/             # 섹션별 컴포넌트 (Header, Hero, TrustBar, ...)
-  App.jsx                 # 전체 페이지 조립
-```
+현재 홈페이지에는 이름·연락처·상담 내용을 입력하는 접수 폼이 없습니다. 사이트에서 상담 정보를 수집하거나 이메일로 자동 발송하지 않습니다. 카카오톡 연결에는 이메일 인증정보, 앱 비밀번호 또는 Turnstile 설정이 필요하지 않습니다.
 
-## ⚠️ 반드시 확인해주세요 — 이미지 에셋
+공개 상담 채널은 다음과 같습니다.
 
-`src/assets/figmaAssets.js`에 있는 이미지 URL은 전부 **Figma의 임시 CDN 링크**입니다
-(`https://www.figma.com/api/mcp/asset/...`). Figma는 이 링크를 내보낸 시점(2026-08-16)
-기준 **약 7일 동안만** 유지합니다.
+- 대표 전화: 1551-5152
+- 공개 이메일: actoz2001@gmail.com
+- 카카오톡: https://open.kakao.com/o/saLK9lJi
+- 텔레그램: https://t.me/newdiacom
 
-이 세션(클라우드 샌드박스)은 보안 정책상 figma.com으로 직접 네트워크 요청을 보낼 수 없어서,
-이미지를 다운로드해 프로젝트에 내장하는 작업을 대신 완료하지 못했습니다. 실제 서비스에
-배포하기 전에 아래 작업이 필요합니다.
+카카오톡의 대화 전달·보관에는 [카카오 개인정보처리방침](https://www.kakao.com/policy/privacy)이 적용됩니다. 사무소의 상담 정보 취급과 자료 반환·폐기 안내는 개인정보 페이지에서 확인할 수 있습니다. 별도의 영구 상담 데이터베이스를 운영하지 않습니다.
 
-1. `src/assets/figmaAssets.js`에 나열된 각 URL을 브라우저로 열어 다운로드
-2. `src/assets/images/` 폴더를 만들어 저장 (파일명은 자유롭게)
-3. `figmaAssets.js`의 각 export를 `import xxx from "./images/xxx.png"` 형태로 교체
+## 주요 파일
 
-7일이 지나기 전에 이 작업을 해주시면, 위 배포 전 화면과 완전히 동일한 결과물을 계속
-유지할 수 있습니다.
+- src/components/ContactForm.jsx: 카카오톡 상담 연결 카드와 전화·개인정보 안내
+- src/config/contact.js: 공개 상담 채널
+- src/components/TrustBar.jsx: 실적 98% / 875 / 1,672 / 1,672
+- src/components/OdometerNumber.jsx: 화면 진입 시 한 번 실행되는 숫자 효과
+- src/pages/ServiceDetail.jsx: 분야별 상세
+- src/pages/PrivacyPolicy.jsx: 상담 정보 처리·업무 범위·자료 보관 안내
+- src/assets/: 로컬 이미지와 웹 표시용 최적화 파일
 
-## 네비게이션 앵커 매핑
+## 페이지 이동
 
-Figma 헤더의 6개 메뉴를 아래 섹션에 연결했습니다 (디자인에 명시적 페이지가 없어 가장
-가까운 섹션으로 매핑함):
-
-| 메뉴 | 연결된 섹션 |
+| Hash 경로 | 내용 |
 | --- | --- |
-| 서비스 분야 | 주요 서비스 분야 (Key Services) |
-| 현무 PIA 소개 | 대표 인사말 (Director Message) |
-| 자격 및 인증 | 자격 및 인증 (Qualifications) |
-| 업무 절차 | 운영 원칙 (Operating Principles) |
-| 비밀보장 | 철저한 보안 운영 방식 (Confidentiality) |
-| FAQ | 자주 묻는 질문 |
+| #service-detail?category=family | 개인·가정 조사 |
+| #service-detail?category=corporate | 기업 조사 |
+| #service-detail?category=locate | 소재 파악·신변보호 |
+| #service-detail?category=security | 도청·불법촬영 탐지 |
+| #contact | 카카오톡 상담 연결 영역 |
+| #privacy-policy | 개인정보 및 운영 안내 |
+| #privacy-policy?section=privacy | 개인정보 처리방침 |
+| #privacy-policy?section=scope | 업무 범위 |
+| #privacy-policy?section=storage | 자료 보관·폐기 |
 
-## 그 외 참고 사항
+정적 호스팅에서도 hash 경로를 새로고침할 수 있습니다. 전화·공개 이메일·텔레그램으로도 이용자가 직접 문의할 수 있습니다.
 
-- 문의 폼(`ContactForm.jsx`)은 실제 서버로 데이터를 전송하지 않는 프론트엔드 전용
-  데모입니다. 실제 접수를 받으려면 이메일 전송 API나 백엔드 엔드포인트를 연결해야 합니다.
-- 하단 푸터(회사명 · 주소 · 저작권 표시)는 Figma 디자인에 없던 요소를 최소한으로 추가한
-  것입니다 — 완성된 페이지 느낌을 위해 넣었습니다. 불필요하면 `App.jsx`에서 `<Footer />`를
-  제거하면 됩니다.
-- 자격 및 인증 섹션의 인증서 카드/파트너 로고 캐러셀은 원본의 절대 좌표 애니메이션을
-  그대로 재현하지 않고, 가로 스크롤 목록으로 단순화했습니다.
+## 이미지·팝업·동작 설정
+
+웹에 표시하는 자격증은 개인정보를 이미지 픽셀에 가린 파일입니다. 가림막을 보완한 3장의 기존 원본은 .private-assets/에 보존하며 Git·배포 업로드에서 제외합니다. 이 폴더와 .env.local은 공유하지 않습니다.
+
+public/의 모든 파일은 참조 여부와 무관하게 배포에 포함됩니다. 이 폴더에는 공개 가능한 로고·파비콘·공유 이미지와 검색 안내 파일만 둡니다.
+
+팝업 일반 닫기는 브라우저 탭 세션 동안, ‘오늘은 그만 보기’는 해당 브라우저 날짜의 당일 동안 재표시하지 않습니다. 팝업 표시 여부만 저장하며 상담 정보는 브라우저 저장소에 저장하지 않습니다.
+
+동작 줄이기 설정에서는 숫자·슬라이드·등장 효과·부드러운 스크롤을 줄입니다. 팝업과 인증 이미지 확대 창은 키보드로 닫을 수 있습니다.
+
+## 배포 주소
+
+프로젝트의 기준 주소는 https://hyunmoo-pia.vercel.app/입니다. 다른 도메인으로 바꾸면 index.html의 canonical·OG URL·공유 이미지 주소, public/robots.txt, public/sitemap.xml을 함께 갱신합니다. public/og-image.jpg는 사용자 제공 돋보기 사진입니다.

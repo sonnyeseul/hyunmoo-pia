@@ -1,0 +1,8 @@
+.env
+.env.*
+!.env.example
+*.local
+src/assets/certificates/gallery/redacted/
+src/assets/brand/favicon-hmpia-original.png
+/tmp/
+.private-assets/
